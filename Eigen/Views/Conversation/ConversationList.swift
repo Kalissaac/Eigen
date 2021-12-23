@@ -14,7 +14,7 @@ struct ConversationList: View
     @State var searchText: String?
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
-    
+        
     func fetch() {
         matrix.session.setStore(matrix.store) { response in
             guard response.isSuccess else { return }
@@ -51,25 +51,25 @@ struct ConversationList: View
                 }
                 
                 Section(header: Text("Conversations")) {
-                    ForEach((0..<directMessages.count), id: \.self) { index in
+                    ForEach(directMessages, id: \.self) { channel in
                         NavigationLink(
-                            destination: ConversationDetail(channel: directMessages[index]).environmentObject(matrix),
-                            tag: directMessages[index].roomId,
+                            destination: ConversationDetail(channel: channel).environmentObject(matrix),
+                            tag: channel.roomId,
                             selection: $activeConversation) {
                                 Image(systemName: "person")
-                                Text(directMessages[index].summary.displayname)
+                                Text(channel.summary.displayname)
                         }
                     }
                 }
                 
                 Section(header: Text("Channels")) {
-                    ForEach((0..<channels.count), id: \.self) { index in
+                    ForEach(channels, id: \.self) { channel in
                         NavigationLink(
-                            destination: ConversationDetail(channel: channels[index]).environmentObject(matrix),
-                            tag: channels[index].roomId,
+                            destination: ConversationDetail(channel: channel).environmentObject(matrix),
+                            tag: channel.roomId,
                             selection: $activeConversation) {
                                 Image(systemName: "number")
-                                Text(channels[index].summary.displayname)
+                                Text(channel.summary.displayname)
                         }
                     }
                 }

@@ -6,12 +6,14 @@
 
 import SwiftUI
 import MatrixSDK
+import Combine
 
 struct MessageEvent: Identifiable {
     var id: String
     var timestamp: UInt64
     var sender: String
     var content: String
+    var roomId: String
 }
 
 struct ConversationDetail: View {
@@ -28,7 +30,8 @@ struct ConversationDetail: View {
                 MessageEvent(id: event.eventId,
                              timestamp: event.originServerTs,
                              sender: event.sender,
-                             content: event.content["body"] as! String
+                             content: event.content["body"] as! String,
+                             roomId: event.roomId
                 )
             }
             messages.sort { a, b in
@@ -46,21 +49,27 @@ struct ConversationDetail: View {
     
     var body: some View {
         VStack {
-            Group {
-                Text("Number of events: \(events.count)")
-                Text("Conversation ID: \(channel.roomId)")
+            ScrollViewReader { scrollViewProxy in
+                ScrollView {
+                    LazyVStack {
+                        ForEach(messages) { $message in
+                            ConversationMessage(message: message)
+                                .id(message.id)
+                                .environmentObject(matrix)
+                        }
+                        .padding(2)
+                        .onReceive(Just(messages), perform: { messages in
+                            if let lastMessage = messages.last {
+                                scrollViewProxy.scrollTo(lastMessage.id)
+                            }
+                        })
+                    }
+                }
             }
-            
-            List(messages) { $message in
-                Text("\(message.sender): \(message.content)")
-            }
-            
-            Spacer()
-            
+                        
             HStack {
                 TextField("Send message", text: $messageInputText)
                     .textFieldStyle(.roundedBorder)
-                    .shadow(radius: 1)
                     .onSubmit {
                         matrix.session.matrixRestClient.sendTextMessage(toRoom: channel.roomId, text: messageInputText)
                         { response in
