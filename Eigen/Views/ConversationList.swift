@@ -4,54 +4,72 @@
 //
 
 import SwiftUI
-
-var listItems = ["Item 1", "Item 2", "Item 3", "Item 4"]
-var secondItems = ["Second 1", "Second 2", "Second 3", "Second 4"]
+import MatrixSDK
 
 struct ConversationList: View
 {
-    @State var activeConversation: String? = "Recents"
-    @Binding var searchText: String
+    @EnvironmentObject var matrix: MatrixModel
+
+    @State var activeConversation: String? = "recents"
+    @State var searchText: String?
+    @State private var directMessages: [MXRoom] = []
+    @State private var channels: [MXRoom] = []
+    
+    func fetch() {
+        matrix.session.setStore(matrix.store) { response in
+            guard response.isSuccess else { return }
+
+            matrix.session.start { response in
+                guard response.isSuccess else { return }
+
+                let allRooms = matrix.session.rooms
+                directMessages = allRooms.filter({ room in
+                    room.isDirect == true
+                })
+                channels = allRooms.filter({ room in
+                    room.isDirect == false
+                })
+                
+            }
+        }
+    }
     
     var body: some View {
         NavigationView {
             List {
-//                HStack {
-//                     Image(systemName: "magnifyingglass")
-//                     TextField("Search", text: $searchText)
-//                        .textFieldStyle(PlainTextFieldStyle())
-//                        .padding(5)
-//                 }
-//                    .background(Color(.darkGray))
-//                    .cornerRadius(4)
-//                    .padding(.bottom, 4)
-                NavigationLink(destination: Text("search results"), tag: "Search", selection: $activeConversation) {
+                NavigationLink(destination: SearchResults(), tag: "search", selection: $activeConversation) {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
                 }
-                NavigationLink(destination: Text("recent list"), tag: "Recents", selection: $activeConversation) {
+                NavigationLink(destination: RecentsList(), tag: "recents", selection: $activeConversation) {
                     Image(systemName: "clock")
                     Text("Recents")
                 }
-                NavigationLink(destination: Text("notifs"), tag: "Notifications", selection: $activeConversation) {
+                NavigationLink(destination: NotificationList(), tag: "notifications", selection: $activeConversation) {
                     Image(systemName: "bell")
                     Text("Inbox")
                 }
                 
                 Section(header: Text("Conversations")) {
-                    ForEach((0..<listItems.count), id: \.self) { index in
-                        NavigationLink(destination: ConversationDetail(conversationId: listItems[index], messageInputText: .constant("")), tag: listItems[index], selection: $activeConversation) {
-                            Image(systemName: "person")
-                            Text(listItems[index])
+                    ForEach((0..<directMessages.count), id: \.self) { index in
+                        NavigationLink(
+                            destination: ConversationDetail(channel: directMessages[index]).environmentObject(matrix),
+                            tag: directMessages[index].roomId,
+                            selection: $activeConversation) {
+                                Image(systemName: "person")
+                                Text(directMessages[index].summary.displayname)
                         }
                     }
                 }
                 
                 Section(header: Text("Channels")) {
-                    ForEach((0..<secondItems.count), id: \.self) { index in
-                        NavigationLink(destination: ConversationDetail(conversationId: secondItems[index], messageInputText: .constant("")), tag: secondItems[index], selection: $activeConversation) {
-                            Image(systemName: "number")
-                            Text(secondItems[index])
+                    ForEach((0..<channels.count), id: \.self) { index in
+                        NavigationLink(
+                            destination: ConversationDetail(channel: channels[index]).environmentObject(matrix),
+                            tag: channels[index].roomId,
+                            selection: $activeConversation) {
+                                Image(systemName: "number")
+                                Text(channels[index].summary.displayname)
                         }
                     }
                 }
@@ -64,12 +82,13 @@ struct ConversationList: View
                 Label("About this conversation", systemImage: "info.circle")
             }
         }
-        .navigationTitle("Recent conversations")
+        
+        .onAppear(perform: fetch)
     }
 }
 
 struct ConversationList_Previews: PreviewProvider {
     static var previews: some View {
-        ConversationList(searchText: .constant(""))
+        ConversationList()
     }
 }
