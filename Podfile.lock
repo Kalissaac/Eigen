@@ -1,0 +1,59 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - GZIP (1.3.0)
+  - libbase58 (0.1.4)
+  - MatrixSDK (0.17.4):
+    - MatrixSDK/Core (= 0.17.4)
+  - MatrixSDK/Core (0.17.4):
+    - AFNetworking (~> 4.0.0)
+    - GZIP (~> 1.3.0)
+    - libbase58 (~> 0.1.4)
+    - OLMKit (~> 3.1.0)
+    - Realm (= 10.1.4)
+  - MatrixSDK/SwiftSupport (0.17.4):
+    - MatrixSDK/Core
+  - OLMKit (3.1.0):
+    - OLMKit/olmc (= 3.1.0)
+    - OLMKit/olmcpp (= 3.1.0)
+  - OLMKit/olmc (3.1.0)
+  - OLMKit/olmcpp (3.1.0)
+  - Realm (10.1.4):
+    - Realm/Headers (= 10.1.4)
+  - Realm/Headers (10.1.4)
+
+DEPENDENCIES:
+  - MatrixSDK
+  - MatrixSDK/SwiftSupport
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - GZIP
+    - libbase58
+    - MatrixSDK
+    - OLMKit
+    - Realm
+
+SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  GZIP: 416858efbe66b41b206895ac6dfd5493200d95b3
+  libbase58: 7c040313537b8c44b6e2d15586af8e21f7354efd
+  MatrixSDK: 39282219213aebf621326f6335073b5a2b1e9113
+  OLMKit: 4ee0159d63feeb86d836fdcfefe418e163511639
+  Realm: 80f4fb2971ccb9adc27a47d0955ae8e533a7030b
+
+PODFILE CHECKSUM: c2f113d8ebb013a5bb68ff2cf6c9d04e53c7e85f
+
+COCOAPODS: 1.11.2
