@@ -5,12 +5,16 @@
         
 
 import SwiftUI
+import MatrixSDK
 
 @main
 struct EigenApp: App {
+    @StateObject var matrixModel = MatrixModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(matrixModel)
         }
     }
 }

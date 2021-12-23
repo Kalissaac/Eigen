@@ -7,8 +7,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var matrix: MatrixModel
+    
     var body: some View {
-        ConversationList(searchText: .constant(""))
+        ConversationList()
+            .environmentObject(matrix)
     }
 }
 
