@@ -41,7 +41,7 @@ struct ConversationDetail: View {
         },
         set: { _ in }
     )}
-    private var roomTimeline: MXEventTimeline?
+    @State private var roomTimeline: MXEventTimeline?
     
     init(channel: MXRoom) {
         self.channel = channel
@@ -51,20 +51,19 @@ struct ConversationDetail: View {
         VStack {
             ScrollViewReader { scrollViewProxy in
                 ScrollView {
-                    LazyVStack {
-                        ForEach(messages) { $message in
-                            ConversationMessage(message: message)
-                                .id(message.id)
-                                .environmentObject(matrix)
-                        }
-                        .padding(2)
-                        .onReceive(Just(messages), perform: { messages in
-                            if let lastMessage = messages.last {
-                                scrollViewProxy.scrollTo(lastMessage.id)
-                            }
-                        })
+                    ForEach(messages) { $message in
+                        ConversationMessage(message: message)
+                            .id(message.id)
                     }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 2)
+                    .onReceive(Just(messages), perform: { messages in
+                        if let lastMessage = messages.last {
+                            scrollViewProxy.scrollTo(lastMessage.id, anchor: .bottom)
+                        }
+                    })
                 }
+                .padding(.top, 8)
             }
                         
             HStack {
@@ -76,11 +75,13 @@ struct ConversationDetail: View {
                             messageInputText = ""
                         }
                     }
-                Button(action: { print("attachment") }) {
+                Button(action: selectAttachment) {
                     Image(systemName: "paperclip")
                 }.buttonStyle(.borderless)
             }
-            .padding()
+            .padding(.horizontal, 12)
+            .padding(.top, 4)
+            .padding(.bottom, 12)
         }
         .navigationTitle(channel.summary.displayname)
         
@@ -91,8 +92,10 @@ struct ConversationDetail: View {
     }
     
     func loadMessages() {
+        if roomTimeline != nil { return }
         channel.liveTimeline { _timeline in
-            let timeline: MXEventTimeline = _timeline!
+            guard let timeline: MXEventTimeline = _timeline else { return }
+            roomTimeline = timeline
             
             _ = timeline.listenToEvents([MXEventType.roomMessage], { event, _, _ in
                 events.insert(event)
@@ -100,6 +103,45 @@ struct ConversationDetail: View {
     
             timeline.resetPagination()
             timeline.paginate(100, direction: .backwards, onlyFromStore: false, completion: { _ in })
+        }
+    }
+    
+    func selectAttachment() {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        if panel.runModal() == .OK {
+            guard let fileURL = panel.url else { return }
+            guard let fileContents = FileManager.default.contents(atPath: fileURL.path) else { return }
+            
+            matrix.session.matrixRestClient.uploadContent(
+                fileContents,
+                filename: fileURL.lastPathComponent,
+                mimeType: fileURL.mimeType(),
+                timeout: 60)
+            { progress in
+                guard progress.isSuccess else { return }
+                
+                var messageType: MXMessageType
+                if fileURL.containsImage {
+                    messageType = .image
+                } else if fileURL.containsAudio {
+                    messageType = .audio
+                } else if fileURL.containsVideo {
+                    messageType = .video
+                } else {
+                    messageType = .file
+                }
+                
+                matrix.session.matrixRestClient.sendMessage(
+                    toRoom: channel.roomId,
+                    messageType: messageType,
+                    content: [
+                        "body": fileURL.lastPathComponent,
+                        "url": progress.value!.absoluteString
+                    ])
+                { _ in }
+            }
         }
     }
 }
