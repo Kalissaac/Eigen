@@ -6,14 +6,14 @@
 import SwiftUI
 import MatrixSDK
 
-struct ConversationList: View
-{
+struct ConversationList: View {
     @EnvironmentObject var matrix: MatrixModel
 
     @State var activeConversation: String? = "recents"
     @State var searchText: String?
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
+    @State private var showDetailInfo = false
         
     func fetch() {
         matrix.session.setStore(matrix.store) { response in
@@ -53,7 +53,7 @@ struct ConversationList: View
                 Section(header: Text("Conversations")) {
                     ForEach(directMessages, id: \.self) { channel in
                         NavigationLink(
-                            destination: ConversationDetail(channel: channel).environmentObject(matrix),
+                            destination: ConversationDetail(channel: channel),
                             tag: channel.roomId,
                             selection: $activeConversation) {
                                 Image(systemName: "person")
@@ -65,7 +65,7 @@ struct ConversationList: View
                 Section(header: Text("Channels")) {
                     ForEach(channels, id: \.self) { channel in
                         NavigationLink(
-                            destination: ConversationDetail(channel: channel).environmentObject(matrix),
+                            destination: ConversationDetail(channel: channel),
                             tag: channel.roomId,
                             selection: $activeConversation) {
                                 Image(systemName: "number")
@@ -74,12 +74,23 @@ struct ConversationList: View
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
+            .listStyle(.sidebar)
         }
         
         .toolbar {
-            Button(action: {}) {
-                Label("About this conversation", systemImage: "info.circle")
+            if activeConversation?.contains(":") == true {
+                Button(action: { showDetailInfo = true }) {
+                    Label("About this conversation", systemImage: "info.circle")
+                }
+                .popover(isPresented: $showDetailInfo, arrowEdge: .bottom) {
+                    ConversationDetailInfo(channel: matrix.session.rooms.first(where: { room in
+                        room.roomId == activeConversation
+                    })!)
+                }
+            } else {
+                Button(action: {}) {
+                    Label("About me", systemImage: "person.crop.circle")
+                }
             }
         }
         

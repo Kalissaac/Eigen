@@ -13,7 +13,12 @@ struct ConversationDetailInfo: View {
     var channel: MXRoom
     
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            DisclosureGroup("Conversation ID") {
+                Text(channel.roomId)
+            }
+        }
+        .padding()
     }
 }
 
