@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4082C2A88270B9588DF87A4F /* Pods_Eigen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752F28AA0410009AFC2FDF89 /* Pods_Eigen.framework */; };
-		8D33F3DC27742E2500789812 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 8D33F3DB27742E2500789812 /* Podfile */; };
+		8D043B44277518120040DD09 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D043B43277518120040DD09 /* Extensions.swift */; };
+		8D2E1FDF2775A8700010089D /* KeychainInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2E1FDE2775A8700010089D /* KeychainInterface.swift */; };
 		8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33F3DD27744BDC00789812 /* MatrixModel.swift */; };
 		8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3BB58A26BF484500AE0FE2 /* EigenApp.swift */; };
 		8D3BB58D26BF484500AE0FE2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3BB58C26BF484500AE0FE2 /* ContentView.swift */; };
@@ -20,14 +21,17 @@
 		8D813B5D2774168F00782363 /* RecentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5C2774168F00782363 /* RecentsList.swift */; };
 		8D813B5F277416B800782363 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5E277416B800782363 /* SearchResults.swift */; };
 		8DBF77B72774DFA900083ADB /* ConversationDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */; };
+		8DBF77BA2774E55C00083ADB /* ChatScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77B92774E55C00083ADB /* ChatScrollView.swift */; };
 		8DBF77BC2774E7A200083ADB /* ConversationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77BB2774E7A100083ADB /* ConversationMessage.swift */; };
+		8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD4EDF927754DF800C075C1 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02A13B2272602682448189D0 /* Pods-Eigen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eigen.release.xcconfig"; path = "Target Support Files/Pods-Eigen/Pods-Eigen.release.xcconfig"; sourceTree = "<group>"; };
 		4704081D2EFD5D1671268DBD /* Pods-Eigen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eigen.debug.xcconfig"; path = "Target Support Files/Pods-Eigen/Pods-Eigen.debug.xcconfig"; sourceTree = "<group>"; };
 		752F28AA0410009AFC2FDF89 /* Pods_Eigen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eigen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D33F3DB27742E2500789812 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8D043B43277518120040DD09 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8D2E1FDE2775A8700010089D /* KeychainInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainInterface.swift; sourceTree = "<group>"; };
 		8D33F3DD27744BDC00789812 /* MatrixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixModel.swift; sourceTree = "<group>"; };
 		8D3BB58726BF484500AE0FE2 /* Eigen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eigen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3BB58A26BF484500AE0FE2 /* EigenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenApp.swift; sourceTree = "<group>"; };
@@ -41,6 +45,10 @@
 		8D813B5A2774168600782363 /* NotificationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
 		8D813B5C2774168F00782363 /* RecentsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsList.swift; sourceTree = "<group>"; };
 		8D813B5E277416B800782363 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
+		8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDetailInfo.swift; sourceTree = "<group>"; };
+		8DBF77B92774E55C00083ADB /* ChatScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScrollView.swift; sourceTree = "<group>"; };
+		8DBF77BB2774E7A100083ADB /* ConversationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessage.swift; sourceTree = "<group>"; };
+		8DD4EDF927754DF800C075C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +83,6 @@
 		8D3BB57E26BF484500AE0FE2 = {
 			isa = PBXGroup;
 			children = (
-				8D33F3DB27742E2500789812 /* Podfile */,
 				8D3BB58926BF484500AE0FE2 /* Eigen */,
 				8D3BB58826BF484500AE0FE2 /* Products */,
 				8CB7867301B55D8BBB367FB3 /* Pods */,
@@ -102,6 +109,8 @@
 				8D3BB59426BF484600AE0FE2 /* Eigen.entitlements */,
 				8D3BB59026BF484600AE0FE2 /* Preview Content */,
 				8D33F3DD27744BDC00789812 /* MatrixModel.swift */,
+				8D043B43277518120040DD09 /* Extensions.swift */,
+				8D2E1FDE2775A8700010089D /* KeychainInterface.swift */,
 			);
 			path = Eigen;
 			sourceTree = "<group>";
@@ -117,13 +126,25 @@
 		8D3BB59A26BF485000AE0FE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8D3BB59B26BF486300AE0FE2 /* ConversationList.swift */,
-				8D3BB59D26BF4C7B00AE0FE2 /* ConversationDetail.swift */,
+				8DBF77B82774DFB900083ADB /* Conversation */,
 				8D813B5A2774168600782363 /* NotificationList.swift */,
 				8D813B5C2774168F00782363 /* RecentsList.swift */,
 				8D813B5E277416B800782363 /* SearchResults.swift */,
+				8DBF77B92774E55C00083ADB /* ChatScrollView.swift */,
+				8DD4EDF927754DF800C075C1 /* LoginView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8DBF77B82774DFB900083ADB /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				8D3BB59B26BF486300AE0FE2 /* ConversationList.swift */,
+				8D3BB59D26BF4C7B00AE0FE2 /* ConversationDetail.swift */,
+				8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */,
+				8DBF77BB2774E7A100083ADB /* ConversationMessage.swift */,
+			);
+			path = Conversation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +206,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D33F3DC27742E2500789812 /* Podfile in Resources */,
 				8D3BB59226BF484600AE0FE2 /* Preview Assets.xcassets in Resources */,
 				8D3BB58F26BF484600AE0FE2 /* Assets.xcassets in Resources */,
 			);
@@ -240,12 +260,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DBF77B72774DFA900083ADB /* ConversationDetailInfo.swift in Sources */,
 				8D3BB58D26BF484500AE0FE2 /* ContentView.swift in Sources */,
 				8D3BB59E26BF4C7B00AE0FE2 /* ConversationDetail.swift in Sources */,
+				8D2E1FDF2775A8700010089D /* KeychainInterface.swift in Sources */,
+				8DBF77BC2774E7A200083ADB /* ConversationMessage.swift in Sources */,
+				8DBF77BA2774E55C00083ADB /* ChatScrollView.swift in Sources */,
 				8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */,
 				8D813B5D2774168F00782363 /* RecentsList.swift in Sources */,
+				8D043B44277518120040DD09 /* Extensions.swift in Sources */,
 				8D3BB59C26BF486300AE0FE2 /* ConversationList.swift in Sources */,
 				8D813B5F277416B800782363 /* SearchResults.swift in Sources */,
+				8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */,
 				8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */,
 				8D813B5B2774168600782363 /* NotificationList.swift in Sources */,
 			);
@@ -380,6 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Eigen/Preview Content\"";
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Eigen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -404,6 +431,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Eigen/Preview Content\"";
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Eigen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
