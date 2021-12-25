@@ -69,7 +69,7 @@ struct ConversationList: View {
                             tag: channel.roomId,
                             selection: $activeConversation) {
                                 Image(systemName: "number")
-                                Text(channel.summary.displayname)
+                                Text(channel.summary?.displayname ?? channel.roomId)
                         }
                     }
                 }
