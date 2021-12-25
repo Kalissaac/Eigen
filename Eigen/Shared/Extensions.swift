@@ -7,6 +7,7 @@
 import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
+import MatrixSDK
 
 extension NSTextField {
     open override var focusRingType: NSFocusRingType {
@@ -48,5 +49,15 @@ extension URL {
             return type.conforms(to: .video) || type.conforms(to: .movie)
         }
         return false
+    }
+}
+
+extension MXEvent: Comparable {
+    public static func <(lhs: MXEvent, rhs: MXEvent) -> Bool {
+        lhs.originServerTs < rhs.originServerTs
+    }
+
+    public static func >(lhs: MXEvent, rhs: MXEvent) -> Bool {
+        lhs.originServerTs > rhs.originServerTs
     }
 }
