@@ -16,6 +16,12 @@ struct MessageEvent: Identifiable {
     var roomId: String
 }
 
+enum MessageLoadStatus {
+    case done
+    case inProgress
+    case error
+}
+
 struct ConversationDetail: View {
     @EnvironmentObject var matrix: MatrixModel
 
@@ -30,42 +36,33 @@ struct ConversationDetail: View {
                 MessageEvent(id: event.eventId,
                              timestamp: event.originServerTs,
                              sender: event.sender,
-                             content: event.content["body"] as! String,
+                             content: event.content["body"] as? String ?? "unknown",
                              roomId: event.roomId
                 )
             }
             messages.sort { a, b in
-                    a.timestamp < b.timestamp
+                    a.timestamp > b.timestamp
                 }
             return messages
         },
         set: { _ in }
     )}
     @State private var roomTimeline: MXEventTimeline?
-    
+    @State private var messageLoadStatus: MessageLoadStatus = .inProgress
+
     init(channel: MXRoom) {
         self.channel = channel
     }
     
     var body: some View {
         VStack {
-            ScrollViewReader { scrollViewProxy in
-                ScrollView {
-                    ForEach(messages) { $message in
-                        ConversationMessage(message: message)
-                            .id(message.id)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 2)
-                    .onReceive(Just(messages), perform: { messages in
-                        if let lastMessage = messages.last {
-                            scrollViewProxy.scrollTo(lastMessage.id, anchor: .bottom)
-                        }
-                    })
-                }
-                .padding(.top, 8)
+            List(messages) { $message in
+                ConversationMessage(message: message)
+                    .id(message.id)
+                    .scaleEffect(x: 1, y: -1, anchor: .center)
             }
-                        
+            .scaleEffect(x: 1, y: -1, anchor: .center)
+
             HStack {
                 TextField("Send message", text: $messageInputText)
                     .textFieldStyle(.roundedBorder)
@@ -85,14 +82,15 @@ struct ConversationDetail: View {
         }
         .navigationTitle(channel.summary.displayname)
         
-        .onAppear(perform: loadMessages)
+        .onAppear(perform: loadInitialMessages)
         .onDisappear {
             roomTimeline?.removeAllListeners()
+            // record last visited room time
         }
     }
     
-    func loadMessages() {
-        if roomTimeline != nil { return }
+    func loadInitialMessages() {
+        guard roomTimeline == nil else { return }
         channel.liveTimeline { _timeline in
             guard let timeline: MXEventTimeline = _timeline else { return }
             roomTimeline = timeline
@@ -102,7 +100,19 @@ struct ConversationDetail: View {
             })
     
             timeline.resetPagination()
-            timeline.paginate(100, direction: .backwards, onlyFromStore: false, completion: { _ in })
+            timeline.paginate(100, direction: .backwards, onlyFromStore: false, completion: { response in
+                guard response.value != nil else { return }
+                messageLoadStatus = .done
+            })
+        }
+    }
+
+    func loadMoreMessages(withAmount amount: UInt = 50) {
+        guard messageLoadStatus != .inProgress else { return }
+        messageLoadStatus = .inProgress
+        roomTimeline?.paginate(amount, direction: .backwards, onlyFromStore: false) { response in
+            guard response.value != nil else { return }
+            messageLoadStatus = .done
         }
     }
     
