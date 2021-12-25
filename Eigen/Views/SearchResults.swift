@@ -14,6 +14,11 @@ struct SearchResults: View {
     @State private var searchText = ""
     @State private var searchResults: [MXSearchResult] = []
     @State private var isLoading = false
+    private var searchResultsEvents: Binding<[MXEvent]> { Binding (
+        get: { searchResults.map({ $0.result }) },
+        set: { _ in }
+        )
+    }
 
     var body: some View {
         VStack {
@@ -29,13 +34,7 @@ struct SearchResults: View {
                  .cornerRadius(13)
                  .padding()
 
-            List(searchResults, id: \.self) { event in
-                if event.result.eventType == .roomMessage {
-                    MessageEventView(message: MessageEvent(id: event.result.eventId, timestamp: event.result.originServerTs, sender: event.result.sender, content: event.result.content["body"] as! String, roomId: event.result.roomId))
-                } else {
-                    Text(event.result.content["body"] as? String ?? "unknown content of type \(event.result.type ?? "unknown    ")")
-                }
-            }
+            EventList(events: searchResultsEvents)
             .onChange(of: searchText) { newSearchText in
                 matrix.session.matrixRestClient.searchMessages(withPattern: newSearchText, nextBatch: "") { response in
                     switch response {
