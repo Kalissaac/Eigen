@@ -21,9 +21,9 @@
 		8D813B5D2774168F00782363 /* RecentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5C2774168F00782363 /* RecentsList.swift */; };
 		8D813B5F277416B800782363 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5E277416B800782363 /* SearchResults.swift */; };
 		8DBF77B72774DFA900083ADB /* ConversationDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */; };
-		8DBF77BA2774E55C00083ADB /* ChatScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77B92774E55C00083ADB /* ChatScrollView.swift */; };
 		8DBF77BC2774E7A200083ADB /* ConversationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77BB2774E7A100083ADB /* ConversationMessage.swift */; };
 		8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD4EDF927754DF800C075C1 /* LoginView.swift */; };
+		8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE095622776AA2E0034C4A3 /* ProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,9 +46,9 @@
 		8D813B5C2774168F00782363 /* RecentsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsList.swift; sourceTree = "<group>"; };
 		8D813B5E277416B800782363 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDetailInfo.swift; sourceTree = "<group>"; };
-		8DBF77B92774E55C00083ADB /* ChatScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScrollView.swift; sourceTree = "<group>"; };
 		8DBF77BB2774E7A100083ADB /* ConversationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessage.swift; sourceTree = "<group>"; };
 		8DD4EDF927754DF800C075C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		8DE095622776AA2E0034C4A3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,8 +130,8 @@
 				8D813B5A2774168600782363 /* NotificationList.swift */,
 				8D813B5C2774168F00782363 /* RecentsList.swift */,
 				8D813B5E277416B800782363 /* SearchResults.swift */,
-				8DBF77B92774E55C00083ADB /* ChatScrollView.swift */,
 				8DD4EDF927754DF800C075C1 /* LoginView.swift */,
+				8DE095622776AA2E0034C4A3 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,8 +265,8 @@
 				8D3BB59E26BF4C7B00AE0FE2 /* ConversationDetail.swift in Sources */,
 				8D2E1FDF2775A8700010089D /* KeychainInterface.swift in Sources */,
 				8DBF77BC2774E7A200083ADB /* ConversationMessage.swift in Sources */,
-				8DBF77BA2774E55C00083ADB /* ChatScrollView.swift in Sources */,
 				8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */,
+				8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */,
 				8D813B5D2774168F00782363 /* RecentsList.swift in Sources */,
 				8D043B44277518120040DD09 /* Extensions.swift in Sources */,
 				8D3BB59C26BF486300AE0FE2 /* ConversationList.swift in Sources */,

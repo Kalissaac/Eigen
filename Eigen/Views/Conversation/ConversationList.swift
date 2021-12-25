@@ -88,8 +88,11 @@ struct ConversationList: View {
                     })!)
                 }
             } else {
-                Button(action: {}) {
+                Button(action: { showDetailInfo = true }) {
                     Label("About me", systemImage: "person.crop.circle")
+                }
+                .popover(isPresented: $showDetailInfo, arrowEdge: .bottom) {
+                    ProfileView()
                 }
             }
         }

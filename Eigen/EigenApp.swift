@@ -13,15 +13,16 @@ struct EigenApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(matrixModel)
+            switch matrixModel.authenticationStatus {
+            case .authenticated:
+                ContentView()
+                    .environmentObject(matrixModel)
+            case .notAuthenticated:
+                LoginView()
+                    .environmentObject(matrixModel)
+            default:
+                ProgressView()
+            }
         }
-    }
-}
-
-extension NSTextField {
-    open override var focusRingType: NSFocusRingType {
-        get { .none }
-        set { }
     }
 }
