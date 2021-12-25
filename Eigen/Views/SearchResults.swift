@@ -19,20 +19,24 @@ struct SearchResults: View {
         set: { _ in }
         )
     }
+    @FocusState private var isFocused: Bool
 
     var body: some View {
         VStack {
-            ZStack {
+            HStack {
                 HStack {
                      Image(systemName: "magnifyingglass")
                      TextField("Search ..", text: $searchText)
+                        .textFieldStyle(.plain)
+                        .focused($isFocused)
                  }
-                     .foregroundColor(.gray)
-                     .padding(.leading, 13)
-             }
-                 .frame(height: 40)
-                 .cornerRadius(13)
-                 .padding()
+                .padding(6)
+                .background(Color(nsColor: .quaternaryLabelColor))
+                .cornerRadius(8)
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 4)
+            .padding(.bottom, 16)
 
             EventList(events: searchResultsEvents)
             .onChange(of: searchText) { newSearchText in
@@ -51,6 +55,10 @@ struct SearchResults: View {
             }
         }
         .navigationTitle("Search results")
+        .background(.background)
+        .onAppear {
+            isFocused = true
+        }
     }
 }
 
