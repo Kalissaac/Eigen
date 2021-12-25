@@ -6,6 +6,7 @@
 
 import SwiftUI
 import MatrixSDK
+import CachedAsyncImage
 
 struct ConversationMessage: View {
     @EnvironmentObject var matrix: MatrixModel
@@ -15,7 +16,7 @@ struct ConversationMessage: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: normalizeAvatarURL(user?.avatarUrl)) { image in
+            CachedAsyncImage(url: normalizeAvatarURL(user?.avatarUrl)) { image in
                 image
                     .resizable()
             } placeholder: {
