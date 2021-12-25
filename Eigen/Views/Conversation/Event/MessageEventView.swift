@@ -1,5 +1,5 @@
 //
-// ConversationMessage.swift
+// MessageEventView.swift
 // Eigen
 //
         
@@ -8,7 +8,7 @@ import SwiftUI
 import MatrixSDK
 import CachedAsyncImage
 
-struct ConversationMessage: View {
+struct MessageEventView: View {
     @EnvironmentObject var matrix: MatrixModel
 
     var message: MessageEvent

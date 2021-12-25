@@ -27,26 +27,7 @@ struct ConversationDetail: View {
 
     var channel: MXRoom
     @State private var messageInputText = ""
-    @State private var events: Set<MXEvent> = Set()
-    private var messages: Binding<[MessageEvent]> { Binding (
-        get: {
-            var messages = events.filter { event in
-                event.eventType == .roomMessage
-            }.map { event in
-                MessageEvent(id: event.eventId,
-                             timestamp: event.originServerTs,
-                             sender: event.sender,
-                             content: event.content["body"] as? String ?? "unknown",
-                             roomId: event.roomId
-                )
-            }
-            messages.sort { a, b in
-                    a.timestamp > b.timestamp
-                }
-            return messages
-        },
-        set: { _ in }
-    )}
+    @State private var events: [MXEvent] = []
     @State private var roomTimeline: MXEventTimeline?
     @State private var messageLoadStatus: MessageLoadStatus = .inProgress
 
@@ -56,10 +37,27 @@ struct ConversationDetail: View {
     
     var body: some View {
         VStack {
-            List(messages) { $message in
-                ConversationMessage(message: message)
-                    .id(message.id)
-                    .scaleEffect(x: 1, y: -1, anchor: .center)
+            List(events, id: \.eventId) { event in
+                switch event.eventType {
+                case .roomMessage:
+                    let message = MessageEvent(
+                        id: event.eventId,
+                        timestamp: event.originServerTs,
+                        sender: event.sender,
+                        content: event.content["body"] as? String ?? "(unknown content)",
+                        roomId: event.roomId
+                    )
+                    MessageEventView(message: message)
+                        .id(message.id)
+                        .scaleEffect(x: 1, y: -1, anchor: .center)
+                case .roomMember:
+                    MemberEventView(event: event)
+                        .scaleEffect(x: 1, y: -1, anchor: .center)
+                default:
+                    Text(event.content["body"] as? String ?? "(unknown event)")
+                        .font(.caption)
+                        .scaleEffect(x: 1, y: -1, anchor: .center)
+                }
             }
             .scaleEffect(x: 1, y: -1, anchor: .center)
 
@@ -94,9 +92,16 @@ struct ConversationDetail: View {
         channel.liveTimeline { _timeline in
             guard let timeline: MXEventTimeline = _timeline else { return }
             roomTimeline = timeline
-            
-            _ = timeline.listenToEvents([MXEventType.roomMessage], { event, _, _ in
-                events.insert(event)
+
+            _ = timeline.listenToEvents([.roomMessage, .roomMember, .reaction, .receipt, .typing], { event, _, _ in
+                if events.first != nil && events.first!.originServerTs > event.originServerTs {
+                    // Older event, insert at back
+                    events.append(event)
+                    events.sort(by: >)
+                } else {
+                    // Recent event, insert at front
+                    events.insert(event, at: 0)
+                }
             })
     
             timeline.resetPagination()

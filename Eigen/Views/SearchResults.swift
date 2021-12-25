@@ -31,7 +31,7 @@ struct SearchResults: View {
 
             List(searchResults, id: \.self) { event in
                 if event.result.eventType == .roomMessage {
-                    ConversationMessage(message: MessageEvent(id: event.result.eventId, timestamp: event.result.originServerTs, sender: event.result.sender, content: event.result.content["body"] as! String, roomId: event.result.roomId))
+                    MessageEventView(message: MessageEvent(id: event.result.eventId, timestamp: event.result.originServerTs, sender: event.result.sender, content: event.result.content["body"] as! String, roomId: event.result.roomId))
                 } else {
                     Text(event.result.content["body"] as? String ?? "unknown content of type \(event.result.type ?? "unknown    ")")
                 }
