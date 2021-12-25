@@ -48,20 +48,21 @@ class MatrixModel: ObservableObject {
         login(withCredentials: credentials)
     }
 
-    func login(withCredentials credentials: MXCredentials) {
+    func login(withCredentials credentials: MXCredentials, savingToKeychain saveToKeychain: Bool = false) {
         let restClient = MXRestClient(credentials: credentials, unrecognizedCertificateHandler: nil)
-        let _session = MXSession(matrixRestClient: restClient)
-        if _session != nil {
-            session = _session!
-            authenticationStatus = .authenticated
-        } else {
+        guard let _session = MXSession(matrixRestClient: restClient) else {
             authenticationStatus = .error
+            return
         }
+        session = _session
+        authenticationStatus = .authenticated
 
-        let defaults = UserDefaults.standard
-        defaults.set(credentials.homeServer, forKey: "homeserver")
-        defaults.set(credentials.userId, forKey: "username")
-        try? Keychain.save(password: credentials.accessToken!.data(using: .utf8)!, service: credentials.homeServer!, account: credentials.userId!)
+        if saveToKeychain {
+            let defaults = UserDefaults.standard
+            defaults.set(credentials.homeServer, forKey: "homeserver")
+            defaults.set(credentials.userId, forKey: "username")
+            try? Keychain.save(password: credentials.accessToken!.data(using: .utf8)!, service: credentials.homeServer!, account: credentials.userId!)
+        }
     }
 
     func logout() {

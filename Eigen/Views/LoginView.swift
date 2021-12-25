@@ -52,7 +52,7 @@ struct LoginView: View {
         session?.matrixRestClient.login(username: username, password: password) { response in
             switch response {
             case .success(let credentials):
-                matrix.login(withCredentials: credentials)
+                matrix.login(withCredentials: credentials, savingToKeychain: true)
                 break
 
             case .failure(let error):
