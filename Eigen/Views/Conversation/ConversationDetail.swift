@@ -16,7 +16,7 @@ enum MessageLoadStatus {
 struct ConversationDetail: View {
     @EnvironmentObject var matrix: MatrixModel
 
-    var channel: MXRoom
+    let channel: MXRoom
     @State private var messageInputText = ""
     @State private var events: [MXEvent] = []
     @State private var roomTimeline: MXEventTimeline?

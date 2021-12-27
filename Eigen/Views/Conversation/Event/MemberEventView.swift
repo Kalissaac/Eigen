@@ -10,7 +10,7 @@ import MatrixSDK
 struct MemberEventView: View {
     @EnvironmentObject var matrix: MatrixModel
 
-    var event: MXEvent
+    let event: MXEvent
     
     var body: some View {
         HStack {

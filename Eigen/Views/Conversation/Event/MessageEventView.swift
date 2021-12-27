@@ -11,7 +11,7 @@ import CachedAsyncImage
 struct MessageEventView: View {
     @EnvironmentObject var matrix: MatrixModel
 
-    var message: MessageEvent
+    let message: MessageEvent
     @State private var user: MXUser?
     
     var body: some View {
