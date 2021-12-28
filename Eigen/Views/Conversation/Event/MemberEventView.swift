@@ -18,13 +18,19 @@ struct MemberEventView: View {
             UserAvatarView(user: user, height: 18, width: 18, mediaManager: matrix.session.mediaManager)
                 .padding(.horizontal, 4)
             HStack(spacing: 2) {
-                Text(event.content["displayname"] as? String ?? event.sender)
+                Text(user?.displayname ?? event.content["displayname"] as? String ?? event.sender)
                     .help(event.sender)
                 switch event.content["membership"] as? String {
                 case "join":
                     Text("joined")
                 case "leave":
                     Text("left")
+                case "invite":
+                    Text("invited \(event.content["displayname"] as? String ?? "unknown user") to")
+                case "ban":
+                    Text("was banned from")
+                case "knock":
+                    Text("requested to join")
                 default:
                     Text("unknown action")
                 }
@@ -34,6 +40,7 @@ struct MemberEventView: View {
                 .font(.caption)
                 .padding(.leading, 3)
         }
+        .onAppear(perform: fetchUser)
     }
 
     func fetchUser() {
