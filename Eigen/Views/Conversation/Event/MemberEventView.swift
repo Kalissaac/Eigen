@@ -11,11 +11,33 @@ struct MemberEventView: View {
     @EnvironmentObject var matrix: MatrixModel
 
     let event: MXEvent
-    
+    @State private var user: MXUser?
+
     var body: some View {
         HStack {
-            Text("\(event.content["displayname"] as? String ?? "unknown name") \(event.content["membership"] as? String ?? "unknown action") the room")
+            UserAvatarView(user: user, height: 18, width: 18, mediaManager: matrix.session.mediaManager)
+                .padding(.horizontal, 4)
+            HStack(spacing: 2) {
+                Text(event.content["displayname"] as? String ?? event.sender)
+                    .help(event.sender)
+                switch event.content["membership"] as? String {
+                case "join":
+                    Text("joined")
+                case "leave":
+                    Text("left")
+                default:
+                    Text("unknown action")
+                }
+                Text("the room")
+            }
+                .foregroundColor(.secondary)
+                .font(.caption)
+                .padding(.leading, 3)
         }
+    }
+
+    func fetchUser() {
+        user = matrix.session.user(withUserId: event.sender)
     }
 }
 

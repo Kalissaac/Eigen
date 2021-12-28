@@ -10,6 +10,7 @@
 		4082C2A88270B9588DF87A4F /* Pods_Eigen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752F28AA0410009AFC2FDF89 /* Pods_Eigen.framework */; };
 		8D043B44277518120040DD09 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D043B43277518120040DD09 /* Extensions.swift */; };
 		8D2E1FDF2775A8700010089D /* KeychainInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2E1FDE2775A8700010089D /* KeychainInterface.swift */; };
+		8D306A0E277B96EF00F7FC7C /* UserAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */; };
 		8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33F3DD27744BDC00789812 /* MatrixModel.swift */; };
 		8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3BB58A26BF484500AE0FE2 /* EigenApp.swift */; };
 		8D3BB58D26BF484500AE0FE2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3BB58C26BF484500AE0FE2 /* ContentView.swift */; };
@@ -35,6 +36,7 @@
 		752F28AA0410009AFC2FDF89 /* Pods_Eigen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eigen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D043B43277518120040DD09 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8D2E1FDE2775A8700010089D /* KeychainInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainInterface.swift; sourceTree = "<group>"; };
+		8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatarView.swift; sourceTree = "<group>"; };
 		8D33F3DD27744BDC00789812 /* MatrixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixModel.swift; sourceTree = "<group>"; };
 		8D3BB58726BF484500AE0FE2 /* Eigen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eigen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3BB58A26BF484500AE0FE2 /* EigenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EigenApp.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				8DD4EDF927754DF800C075C1 /* LoginView.swift */,
 				8DE095622776AA2E0034C4A3 /* ProfileView.swift */,
 				8D727C6C2777A4E000C6585D /* EventList.swift */,
+				8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				8D3BB58D26BF484500AE0FE2 /* ContentView.swift in Sources */,
 				8D3BB59E26BF4C7B00AE0FE2 /* ConversationDetail.swift in Sources */,
 				8D2E1FDF2775A8700010089D /* KeychainInterface.swift in Sources */,
+				8D306A0E277B96EF00F7FC7C /* UserAvatarView.swift in Sources */,
 				8DBF77BC2774E7A200083ADB /* MessageEventView.swift in Sources */,
 				8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */,
 				8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */,
