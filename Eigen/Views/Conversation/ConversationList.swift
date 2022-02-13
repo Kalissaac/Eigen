@@ -68,8 +68,16 @@ struct ConversationList: View {
                             destination: ConversationDetail(channel: channel),
                             tag: channel.roomId,
                             selection: $activeConversation) {
-                                Image(systemName: "number")
-                                Text(channel.summary?.displayname ?? channel.roomId)
+                                HStack {
+                                    Image(systemName: "number")
+                                    Text(channel.summary?.displayname ?? channel.roomId)
+                                    if channel.summary?.hasAnyUnread == true {
+                                        Spacer()
+                                        Circle()
+                                            .frame(width: 8, height: 8)
+                                            .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
+                                    }
+                                }
                         }
                     }
                 }

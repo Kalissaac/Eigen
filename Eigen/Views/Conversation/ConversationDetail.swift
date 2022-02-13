@@ -70,6 +70,7 @@ struct ConversationDetail: View {
                     // Recent event, insert at front
                     events.insert(event, at: 0)
                 }
+                channel.markAllAsRead()
             })
     
             timeline.resetPagination()
