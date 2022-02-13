@@ -49,6 +49,10 @@ struct ConversationList: View {
                     Image(systemName: "bell")
                     Text("Inbox")
                 }
+                NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
+                    Image(systemName: "gear")
+                    Text("Preferences")
+                }
                 
                 Section(header: Text("Conversations")) {
                     ForEach(directMessages, id: \.self) { channel in
