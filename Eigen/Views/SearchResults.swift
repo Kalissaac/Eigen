@@ -5,7 +5,6 @@
         
 
 import SwiftUI
-import Combine
 import MatrixSDK
 
 struct SearchResults: View {
