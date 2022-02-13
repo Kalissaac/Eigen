@@ -51,13 +51,3 @@ extension URL {
         return false
     }
 }
-
-extension MXEvent: Comparable {
-    public static func <(lhs: MXEvent, rhs: MXEvent) -> Bool {
-        lhs.originServerTs < rhs.originServerTs
-    }
-
-    public static func >(lhs: MXEvent, rhs: MXEvent) -> Bool {
-        lhs.originServerTs > rhs.originServerTs
-    }
-}

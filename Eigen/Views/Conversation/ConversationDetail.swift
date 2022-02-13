@@ -65,7 +65,7 @@ struct ConversationDetail: View {
                 if events.first != nil && events.first!.originServerTs > event.originServerTs {
                     // Older event, insert at back
                     events.append(event)
-                    events.sort(by: >)
+                    events.sort(by: <)
                 } else {
                     // Recent event, insert at front
                     events.insert(event, at: 0)
