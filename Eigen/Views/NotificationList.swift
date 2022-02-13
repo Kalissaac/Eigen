@@ -7,8 +7,11 @@
 import SwiftUI
 
 struct NotificationList: View {
+    @EnvironmentObject var matrix: MatrixModel
+
     var body: some View {
         Text("notifs").navigationTitle("Recent notifications")
+        Text(String(matrix.session.missedNotificationsCount()))
     }
 }
 
