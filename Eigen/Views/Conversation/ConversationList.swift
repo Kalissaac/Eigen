@@ -18,35 +18,39 @@ struct ConversationList: View {
     func fetch() {
         matrix.session.setStore(matrix.store) { response in
             guard response.isSuccess else { return }
+            updateRoomStates()
 
             matrix.session.start { response in
                 guard response.isSuccess else { return }
-
-                let allRooms = matrix.session.rooms
-                directMessages = allRooms.filter({ room in
-                    room.isDirect == true
-                }).sorted(by: { roomA, roomB in
-                    return roomA.summary.lastMessage.originServerTs > roomB.summary.lastMessage.originServerTs
-                })
-
-                channels = allRooms.filter({ room in
-                    room.isDirect == false
-                }).sorted(by: { roomA, roomB in
-                    if roomA.summary.hasAnyHighlight && !roomB.summary.hasAnyHighlight {
-                        return true
-                    } else if !roomA.summary.hasAnyHighlight && roomB.summary.hasAnyHighlight {
-                        return false
-                    }
-                    if roomA.summary.hasAnyUnread && !roomB.summary.hasAnyUnread {
-                        return true
-                    } else if !roomA.summary.hasAnyUnread && roomB.summary.hasAnyUnread {
-                        return false
-                    }
-                    return roomA.summary.displayname < roomB.summary.displayname
-                })
-                
+                updateRoomStates()
             }
         }
+    }
+
+    func updateRoomStates() {
+        let allRooms = matrix.session.rooms
+
+        directMessages = allRooms.filter({ room in
+            room.isDirect == true
+        }).sorted(by: { roomA, roomB in
+            return roomA.summary.lastMessage.originServerTs > roomB.summary.lastMessage.originServerTs
+        })
+
+        channels = allRooms.filter({ room in
+            room.isDirect == false
+        }).sorted(by: { roomA, roomB in
+            if roomA.summary.hasAnyHighlight && !roomB.summary.hasAnyHighlight {
+                return true
+            } else if !roomA.summary.hasAnyHighlight && roomB.summary.hasAnyHighlight {
+                return false
+            }
+            if roomA.summary.hasAnyUnread && !roomB.summary.hasAnyUnread {
+                return true
+            } else if !roomA.summary.hasAnyUnread && roomB.summary.hasAnyUnread {
+                return false
+            }
+            return roomA.summary.displayname < roomB.summary.displayname
+        })
     }
     
     var body: some View {
