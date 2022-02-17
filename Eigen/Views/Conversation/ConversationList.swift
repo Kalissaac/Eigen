@@ -114,9 +114,7 @@ struct ConversationList: View {
                     Label("About this conversation", systemImage: "info.circle")
                 }
                 .popover(isPresented: $showDetailInfo, arrowEdge: .bottom) {
-                    ConversationDetailInfo(channel: matrix.session.rooms.first(where: { room in
-                        room.roomId == activeConversation
-                    })!)
+                    ConversationDetailInfo(channel: matrix.session.room(withRoomId: activeConversation))
                 }
             } else {
                 Button(action: { showDetailInfo = true }) {
