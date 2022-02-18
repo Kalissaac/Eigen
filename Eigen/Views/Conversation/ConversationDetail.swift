@@ -49,10 +49,7 @@ struct ConversationDetail: View {
         .navigationTitle(channel.summary.displayname)
         
         .onAppear(perform: loadInitialMessages)
-        .onDisappear {
-            roomTimeline?.removeAllListeners()
-            // record last visited room time
-        }
+        .onDisappear(perform: roomTimeline?.removeAllListeners)
     }
     
     func loadInitialMessages() {
