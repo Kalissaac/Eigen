@@ -71,14 +71,11 @@ struct LoginView: View {
             homeserverURL = url
         }
 
-        let credentials = MXCredentials(homeServer: homeserverURL.absoluteString, userId: nil, accessToken: nil)
-        let restClient = MXRestClient(credentials: credentials, unrecognizedCertificateHandler: nil)
-        let session = MXSession(matrixRestClient: restClient)
-
+        let restClient = MXRestClient(homeServer: homeserverURL, unrecognizedCertificateHandler: nil)
 
         switch method {
         case .usernamePassword:
-            session?.matrixRestClient.login(username: username, password: password) { response in
+            restClient.login(username: username, password: password) { response in
                 switch response {
                 case .success(let credentials):
                     matrix.login(withCredentials: credentials, savingToKeychain: true)
@@ -91,7 +88,7 @@ struct LoginView: View {
             }
             break
         case .SSO:
-            session?.matrixRestClient.getLoginSession(completion: { response in
+            restClient.getLoginSession(completion: { response in
                 guard response.value != nil else { return }
                 let authenticationSession = response.value!
                 print(authenticationSession.flows)
@@ -100,9 +97,7 @@ struct LoginView: View {
                 }
             })
 
-            if let loginURL = session?.matrixRestClient.loginFallbackURL {
-                NSWorkspace.shared.open(loginURL)
-            }
+            NSWorkspace.shared.open(restClient.loginFallbackURL)
         case .accessToken:
             let credentials = MXCredentials(homeServer: homeserverURL.absoluteString, userId: username, accessToken: accessToken)
             matrix.login(withCredentials: credentials, savingToKeychain: true)
