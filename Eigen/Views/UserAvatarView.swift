@@ -9,13 +9,15 @@ import MatrixSDK
 import CachedAsyncImage
 
 struct UserAvatarView: View {
+    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject var roomData: RoomData
     let user: MXUser?
     let height: CGFloat
     let width: CGFloat
     let mediaManager: MXMediaManager
 
     var body: some View {
-        CachedAsyncImage(url: normalizeAvatarURL(user?.avatarUrl)) { image in
+        CachedAsyncImage(url: normalizeAvatarURL()) { image in
             image
                 .resizable()
         } placeholder: {
@@ -35,12 +37,15 @@ struct UserAvatarView: View {
         .clipShape(Circle())
     }
 
-    func normalizeAvatarURL(_ rawURL: String?) -> URL {
+    func normalizeAvatarURL() -> URL {
         let fallbackImageURL = "https://example.com/avatar.png"
-        var url = URL(string: rawURL ?? fallbackImageURL)!
+        var url = URL(string: user?.avatarUrl ?? fallbackImageURL)!
+        if let roomDataUser = roomData.members.member(withUserId: user?.userId) {
+            url = URL(string: roomDataUser.avatarUrl)!
+        }
         if url.scheme == "mxc" {
             let thumbnailURL = mediaManager.url(
-                ofContentThumbnail: rawURL,
+                ofContentThumbnail: url.absoluteString,
                 toFitViewSize: CGSize(width: width, height: height),
                 with: .init(1)
             )
