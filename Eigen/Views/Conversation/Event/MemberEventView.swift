@@ -44,7 +44,7 @@ struct MemberEventView: View {
     }
 
     func fetchUser() {
-        user = matrix.session.user(withUserId: event.sender)
+        user = matrix.session.getOrCreateUser(event.sender)
     }
 }
 

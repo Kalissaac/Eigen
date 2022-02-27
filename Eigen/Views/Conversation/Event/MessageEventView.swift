@@ -39,7 +39,7 @@ struct MessageEventView: View {
     }
     
     func fetchUser() {
-        user = matrix.session.user(withUserId: message.sender)
+        user = matrix.session.getOrCreateUser(message.sender)
     }
 
     func formatDate(_ timestamp: UInt64) -> String {
