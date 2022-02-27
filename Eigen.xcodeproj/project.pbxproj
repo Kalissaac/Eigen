@@ -93,6 +93,7 @@
 		8D04C84A27779A9A00407726 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				8D727C6C2777A4E000C6585D /* EventList.swift */,
 				8DBF77BB2774E7A100083ADB /* MessageEventView.swift */,
 				8D727C6727779C9E00C6585D /* MemberEventView.swift */,
 			);
@@ -149,7 +150,6 @@
 				8D813B5E277416B800782363 /* SearchResults.swift */,
 				8DD4EDF927754DF800C075C1 /* LoginView.swift */,
 				8DE095622776AA2E0034C4A3 /* ProfileView.swift */,
-				8D727C6C2777A4E000C6585D /* EventList.swift */,
 				8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */,
 				8DB9913527B5B4D60040F17E /* PreferencesView.swift */,
 			);
