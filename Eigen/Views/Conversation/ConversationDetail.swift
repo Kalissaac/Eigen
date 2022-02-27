@@ -13,6 +13,10 @@ enum MessageLoadStatus {
     case error
 }
 
+final class RoomData: ObservableObject {
+    @Published var members = MXRoomMembers()
+}
+
 struct ConversationDetail: View {
     @EnvironmentObject var matrix: MatrixModel
 
@@ -21,6 +25,7 @@ struct ConversationDetail: View {
     @State private var events: [MXEvent] = []
     @State private var roomTimeline: MXEventTimeline?
     @State private var messageLoadStatus: MessageLoadStatus = .inProgress
+    @StateObject var roomData = RoomData()
 
     init(channel: MXRoom) {
         self.channel = channel
@@ -29,6 +34,7 @@ struct ConversationDetail: View {
     var body: some View {
         VStack {
             EventList(events: $events)
+                .environmentObject(roomData)
             HStack {
                 TextField("Send message", text: $messageInputText)
                     .textFieldStyle(.roundedBorder)
@@ -53,6 +59,16 @@ struct ConversationDetail: View {
     }
     
     func loadInitialMessages() {
+        channel.members { members in
+            guard members != nil else { return }
+            roomData.members = members!
+        } lazyLoadedMembers: { members in
+            guard members != nil else { return }
+            roomData.members = members!
+        } failure: { error in
+            print(error)
+        }
+        
         guard roomTimeline == nil else { return }
         channel.liveTimeline { _timeline in
             guard let timeline: MXEventTimeline = _timeline else { return }
@@ -67,13 +83,13 @@ struct ConversationDetail: View {
                     // Recent event, insert at front
                     events.insert(event, at: 0)
                 }
-                channel.markAllAsRead()
             })
     
             timeline.resetPagination()
             timeline.paginate(100, direction: .backwards, onlyFromStore: false, completion: { response in
                 guard response.value != nil else { return }
                 messageLoadStatus = .done
+                channel.markAllAsRead()
             })
         }
     }
