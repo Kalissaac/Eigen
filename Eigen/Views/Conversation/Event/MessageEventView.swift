@@ -16,7 +16,7 @@ struct MessageEventView: View {
     
     var body: some View {
         HStack {
-            UserAvatarView(user: user, height: 28, width: 28, mediaManager: matrix.session.mediaManager)
+            UserAvatarView(user: user, height: 28, width: 28)
             VStack {
                 HStack {
                     Text(user?.displayname ?? message.sender)

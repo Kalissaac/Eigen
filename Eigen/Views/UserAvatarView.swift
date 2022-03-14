@@ -14,7 +14,6 @@ struct UserAvatarView: View {
     let user: MXUser?
     let height: CGFloat
     let width: CGFloat
-    let mediaManager: MXMediaManager
 
     var body: some View {
         CachedAsyncImage(url: normalizeAvatarURL()) { image in
@@ -44,7 +43,7 @@ struct UserAvatarView: View {
             url = URL(string: roomDataUser.avatarUrl)!
         }
         if url.scheme == "mxc" {
-            let thumbnailURL = mediaManager.url(
+            let thumbnailURL = matrix.session.mediaManager.url(
                 ofContentThumbnail: url.absoluteString,
                 toFitViewSize: CGSize(width: width, height: height),
                 with: .init(1)
