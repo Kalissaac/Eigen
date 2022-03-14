@@ -11,6 +11,7 @@ enum LoginMethod {
     case usernamePassword
     case SSO
     case accessToken
+    case loginToken
 }
 
 struct LoginView: View {
@@ -63,12 +64,39 @@ struct LoginView: View {
                 .preferredColorScheme(.light)
         )
         .preferredColorScheme(.dark)
+        .onOpenURL { url in
+            print(url)
+            guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
+                  let path = components.url?.pathComponents,
+                  let params = components.queryItems else {
+                    print("Invalid URL or action path missing")
+                    return
+            }
+
+            if let responseHomeserver = URL(string: path[1]) {
+                homeserver = responseHomeserver.absoluteString
+            }
+
+            if let loginToken = params.first(where: { $0.name == "loginToken" })?.value {
+                accessToken = loginToken
+                login(withMethod: .loginToken)
+            } else {
+                print("Login token missing")
+            }
+
+        }
     }
 
     func login(withMethod method: LoginMethod) {
         var homeserverURL = URL(string: "https://matrix.org")!
-        if homeserver != "", let url = URL(string: homeserver) {
-            homeserverURL = url
+        if homeserver != "" {
+            homeserver = homeserver.replacingOccurrences(of: "http://", with: "https://")
+            if !homeserver.starts(with: "https://") {
+                homeserver = "https://\(homeserver)"
+            }
+            if let url = URL(string: homeserver) {
+                homeserverURL = url
+            }
         }
 
         let restClient = MXRestClient(homeServer: homeserverURL, unrecognizedCertificateHandler: nil)
@@ -88,19 +116,30 @@ struct LoginView: View {
             }
             break
         case .SSO:
-            restClient.getLoginSession(completion: { response in
-                guard response.value != nil else { return }
-                let authenticationSession = response.value!
-                print(authenticationSession.flows)
-                if let ssoFlow = authenticationSession.flows.first(where: { $0.type == kMXLoginFlowTypeSSO }) {
-                    ssoFlow.stages
-                }
-            })
+            var ssoRedirectURLComponents = URLComponents()
+            ssoRedirectURLComponents.scheme = homeserverURL.scheme
+            ssoRedirectURLComponents.host = homeserverURL.host
+            ssoRedirectURLComponents.path = "/_matrix/client/v3/login/redirect"
+            ssoRedirectURLComponents.queryItems = [URLQueryItem(name: "redirectUrl", value: "eigen://login/\(homeserverURL.host!)")]
 
-            NSWorkspace.shared.open(restClient.loginFallbackURL)
+            NSWorkspace.shared.open(ssoRedirectURLComponents.url!)
         case .accessToken:
             let credentials = MXCredentials(homeServer: homeserverURL.absoluteString, userId: username, accessToken: accessToken)
             matrix.login(withCredentials: credentials, savingToKeychain: true)
+        case .loginToken:
+            restClient.login(parameters: ["type": "m.login.token", "token": accessToken]) { response in
+                switch response {
+                case .success(let rawLoginResponse):
+                    let loginResponse = MXLoginResponse(fromJSON: rawLoginResponse)!
+                    let credentials = MXCredentials(loginResponse: loginResponse, andDefaultCredentials: restClient.credentials)
+                    matrix.login(withCredentials: credentials, savingToKeychain: true)
+                    break
+
+                case .failure(let error):
+                    print(error)
+                    break
+                }
+            }
         }
     }
 }
