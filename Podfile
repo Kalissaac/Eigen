@@ -6,5 +6,5 @@ target 'Eigen' do
   use_frameworks!
 
   # Pods for Eigen
-  pod 'MatrixSDK', '~> 0.22.0'
+  pod 'MatrixSDK', '~> 0.23.3'
 end
