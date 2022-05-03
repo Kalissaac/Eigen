@@ -40,7 +40,9 @@ struct UserAvatarView: View {
         let fallbackImageURL = "https://example.com/avatar.png"
         var url = URL(string: user?.avatarUrl ?? fallbackImageURL)!
         if let roomDataUser = roomData.members.member(withUserId: user?.userId) {
-            url = URL(string: roomDataUser.avatarUrl)!
+            if roomDataUser.avatarUrl != "" {
+                url = URL(string: roomDataUser.avatarUrl)!
+            }
         }
         if url.scheme == "mxc" {
             let thumbnailURL = matrix.session.mediaManager.url(
