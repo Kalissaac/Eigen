@@ -209,7 +209,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					8D3BB58626BF484500AE0FE2 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -447,7 +447,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Eigen/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WY54NTAK3;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Eigen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,7 +473,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Eigen/Preview Content\"";
 				DEVELOPMENT_TEAM = 5WY54NTAK3;
-				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Eigen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
