@@ -123,35 +123,29 @@ struct ConversationDetail: View {
         panel.canChooseDirectories = false
         if panel.runModal() == .OK {
             guard let fileURL = panel.url else { return }
-            guard let fileContents = FileManager.default.contents(atPath: fileURL.path) else { return }
-            
-            matrix.session.matrixRestClient.uploadContent(
-                fileContents,
-                filename: fileURL.lastPathComponent,
-                mimeType: fileURL.mimeType(),
-                timeout: 60)
-            { progress in
-                guard progress.isSuccess else { return }
-                
-                var messageType: MXMessageType
-                if fileURL.containsImage {
-                    messageType = .image
-                } else if fileURL.containsAudio {
-                    messageType = .audio
-                } else if fileURL.containsVideo {
-                    messageType = .video
-                } else {
-                    messageType = .file
+            do {
+                guard try fileURL.checkResourceIsReachable() else { return }
+            } catch { return }
+
+            var event: MXEvent?
+
+            if fileURL.containsImage {
+                let image = NSImage(byReferencing: fileURL)
+                guard let fileContents = FileManager.default.contents(atPath: fileURL.path) else { return }
+                channel.sendImage(fileContents, withImageSize: image.size, mimeType: fileURL.mimeType(), andThumbnail: NSImage(), threadId: channel.roomId, localEcho: &event)
+                { _ in } failure: { e in
+                    print(e!)
                 }
-                
-                matrix.session.matrixRestClient.sendMessage(
-                    toRoom: channel.roomId,
-                    messageType: messageType,
-                    content: [
-                        "body": fileURL.lastPathComponent,
-                        "url": progress.value!.absoluteString
-                    ])
-                { _ in }
+            } else if fileURL.containsVideo {
+                channel.sendVideo(localURL: fileURL, thumbnail: nil, threadId: nil, localEcho: &event) { _ in }
+            } else if fileURL.containsAudio {
+                channel.sendAudioFile(localURL: fileURL, mimeType: fileURL.mimeType(), threadId: nil, localEcho: &event) { _ in }
+            } else {
+                channel.sendFile(localURL: fileURL, mimeType: fileURL.mimeType(), localEcho: &event) { _ in }
+            }
+
+            if let e = event {
+                insertEvent(e)
             }
         }
     }
