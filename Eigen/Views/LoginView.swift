@@ -119,7 +119,7 @@ struct LoginView: View {
             var ssoRedirectURLComponents = URLComponents()
             ssoRedirectURLComponents.scheme = homeserverURL.scheme
             ssoRedirectURLComponents.host = homeserverURL.host
-            ssoRedirectURLComponents.path = "/_matrix/client/v3/login/redirect"
+            ssoRedirectURLComponents.path = "/_matrix/client/r0/login/sso/redirect"
             ssoRedirectURLComponents.queryItems = [URLQueryItem(name: "redirectUrl", value: "eigen://login/\(homeserverURL.host!)")]
 
             NSWorkspace.shared.open(ssoRedirectURLComponents.url!)
