@@ -22,4 +22,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          path: build/root/Applications/Eigen.app
+          name: Eigen
+          path: build/root/Applications
