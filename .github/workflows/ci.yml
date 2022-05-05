@@ -13,6 +13,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Bundle Update
+        run: gem install bundler:1.17.2
+      - name: Bundle Install
+        run: bundle install
+      - name: Install Dependencies
+        run: bundle exec pod install
       - name: Build
         run: xcodebuild -scheme Eigen -workspace Eigen.xcworkspace clean install DSTROOT=build/root CODE_SIGN_IDENTITY=- | xcpretty  && exit ${PIPESTATUS[0]}
       - name: Upload Artifact
