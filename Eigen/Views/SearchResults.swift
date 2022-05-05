@@ -29,29 +29,30 @@ struct SearchResults: View {
                         .textFieldStyle(.plain)
                         .focused($isFocused)
                  }
-                .padding(6)
-                .background(Color(nsColor: .quaternaryLabelColor))
-                .cornerRadius(8)
+                    .padding(6)
+                    .background(Color(nsColor: .quaternaryLabelColor))
+                    .cornerRadius(8)
             }
-            .padding(.horizontal, 24)
-            .padding(.top, 4)
-            .padding(.bottom, 16)
+                .padding(.horizontal, 24)
+                .padding(.top, 4)
+                .padding(.bottom, 16)
 
             EventList(events: searchResultsEvents)
-            .onChange(of: searchText) { newSearchText in
-                matrix.session.matrixRestClient.searchMessages(withPattern: newSearchText, nextBatch: "") { response in
-                    switch response {
-                    case .success(let searchResponse):
-                        if let results = searchResponse.results {
-                            searchResults = results.sorted(by: { a, b in
-                                a.rank > b.rank
-                            })
+                .onChange(of: searchText) { newSearchText in
+                    matrix.session.matrixRestClient.searchMessages(withPattern: newSearchText, nextBatch: "") { response in
+                        switch response {
+                        case .success(let searchResponse):
+                            if let results = searchResponse.results {
+                                searchResults = results.sorted(by: { a, b in
+                                    a.rank > b.rank
+                                })
+                            }
+                        case .failure(let error):
+                            print(error)
                         }
-                    case .failure(let error):
-                        print(error)
                     }
                 }
-            }
+                .environmentObject(RoomData())
         }
         .navigationTitle("Search results")
         .background(.background)
