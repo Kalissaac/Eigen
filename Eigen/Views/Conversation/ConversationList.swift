@@ -55,57 +55,77 @@ struct ConversationList: View {
     
     var body: some View {
         NavigationView {
-            List {
-                NavigationLink(destination: SearchResults(), tag: "search", selection: $activeConversation) {
-                    Image(systemName: "magnifyingglass")
-                    Text("Search")
-                }
-                NavigationLink(destination: RecentsList(), tag: "recents", selection: $activeConversation) {
-                    Image(systemName: "clock")
-                    Text("Recents")
-                }
-                NavigationLink(destination: NotificationList(), tag: "notifications", selection: $activeConversation) {
-                    Image(systemName: "bell")
-                    Text("Inbox")
-                }
-                NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
-                    Image(systemName: "gear")
-                    Text("Preferences")
-                }
-                
-                Section(header: Text("Conversations")) {
-                    ForEach(directMessages, id: \.self) { channel in
-                        NavigationLink(
-                            destination: ConversationDetail(channel: channel),
-                            tag: channel.roomId,
-                            selection: $activeConversation) {
-                                Image(systemName: "person")
-                                Text(channel.summary.displayname)
+            VStack(spacing: 0) {
+                List {
+                    NavigationLink(destination: SearchResults(), tag: "search", selection: $activeConversation) {
+                        Image(systemName: "magnifyingglass")
+                        Text("Search")
+                    }
+                    NavigationLink(destination: RecentsList(), tag: "recents", selection: $activeConversation) {
+                        Image(systemName: "clock")
+                        Text("Recents")
+                    }
+                    NavigationLink(destination: NotificationList(), tag: "notifications", selection: $activeConversation) {
+                        Image(systemName: "bell")
+                        Text("Inbox")
+                    }
+//                    NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
+//                        Image(systemName: "gear")
+//                        Text("Preferences")
+//                    }
+
+                    Section(header: Text("Conversations")) {
+                        ForEach(directMessages, id: \.self) { channel in
+                            NavigationLink(
+                                destination: ConversationDetail(channel: channel),
+                                tag: channel.roomId,
+                                selection: $activeConversation) {
+                                    Image(systemName: "person")
+                                    Text(channel.summary.displayname)
+                            }
                         }
                     }
-                }
-                
-                Section(header: Text("Channels")) {
-                    ForEach(channels, id: \.self) { channel in
-                        NavigationLink(
-                            destination: ConversationDetail(channel: channel),
-                            tag: channel.roomId,
-                            selection: $activeConversation) {
-                                HStack {
-                                    Image(systemName: "number")
-                                    Text(channel.summary?.displayname ?? channel.roomId)
-                                    if channel.summary?.hasAnyUnread == true {
-                                        Spacer()
-                                        Circle()
-                                            .frame(width: 8, height: 8)
-                                            .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
+
+                    Section(header: Text("Channels")) {
+                        ForEach(channels, id: \.self) { channel in
+                            NavigationLink(
+                                destination: ConversationDetail(channel: channel),
+                                tag: channel.roomId,
+                                selection: $activeConversation) {
+                                    HStack {
+                                        Image(systemName: "number")
+                                        Text(channel.summary?.displayname ?? channel.roomId)
+                                        if channel.summary?.hasAnyUnread == true {
+                                            Spacer()
+                                            Circle()
+                                                .frame(width: 8, height: 8)
+                                                .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
+                                        }
                                     }
-                                }
+                            }
                         }
                     }
                 }
+                    .listStyle(.sidebar)
+                    .padding(.bottom, 0)
+                NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
+                    UserAvatarView(user: matrix.session.myUser, height: 18.0, width: 18.0)
+                        .environmentObject(RoomData())
+                    let usernamePortion = matrix.session.myUser?.userId.split(separator: ":")[0]
+                    let homeserverPortion = matrix.session.myUser?.userId.split(separator: ":")[1]
+                    HStack(spacing: 0) {
+                        Text(usernamePortion ?? "")
+                            .fontWeight(.medium)
+                        Text(":" + (homeserverPortion ?? ""))
+                            .fontWeight(.light)
+                    }
+                }
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.vertical, 12.0)
+                    .frame(maxWidth: .infinity)
+                    .background(activeConversation == "preferences" ? Color.accentColor : .clear, ignoresSafeAreaEdges: .all)
+                    .foregroundColor(activeConversation == "preferences" ? Color("AccentColorInvert") : .accentColor)
             }
-            .listStyle(.sidebar)
         }
         
         .toolbar {
