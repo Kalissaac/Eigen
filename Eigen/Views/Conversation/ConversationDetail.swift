@@ -39,9 +39,12 @@ struct ConversationDetail: View {
                 TextField("Send message", text: $messageInputText)
                     .textFieldStyle(.roundedBorder)
                     .onSubmit {
-                        matrix.session.matrixRestClient.sendTextMessage(toRoom: channel.roomId, text: messageInputText)
-                        { response in
+                        var echoEvent: MXEvent?
+                        channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in
                             messageInputText = ""
+                        }
+                        if echoEvent != nil {
+                            insertEvent(echoEvent!)
                         }
                     }
                 Button(action: selectAttachment) {
