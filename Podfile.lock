@@ -14,27 +14,27 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - GZIP (1.3.0)
   - libbase58 (0.1.4)
-  - MatrixSDK (0.23.3):
-    - MatrixSDK/Core (= 0.23.3)
-  - MatrixSDK/Core (0.23.3):
+  - MatrixSDK (0.23.8):
+    - MatrixSDK/Core (= 0.23.8)
+  - MatrixSDK/Core (0.23.8):
     - AFNetworking (~> 4.0.0)
     - GZIP (~> 1.3.0)
     - libbase58 (~> 0.1.4)
     - OLMKit (~> 3.2.5)
-    - Realm (= 10.16.0)
+    - Realm (= 10.27.0)
     - SwiftyBeaver (= 1.9.5)
   - OLMKit (3.2.5):
     - OLMKit/olmc (= 3.2.5)
     - OLMKit/olmcpp (= 3.2.5)
   - OLMKit/olmc (3.2.5)
   - OLMKit/olmcpp (3.2.5)
-  - Realm (10.16.0):
-    - Realm/Headers (= 10.16.0)
-  - Realm/Headers (10.16.0)
+  - Realm (10.27.0):
+    - Realm/Headers (= 10.27.0)
+  - Realm/Headers (10.27.0)
   - SwiftyBeaver (1.9.5)
 
 DEPENDENCIES:
-  - MatrixSDK (~> 0.23.3)
+  - MatrixSDK (~> 0.23.8)
 
 SPEC REPOS:
   trunk:
@@ -50,11 +50,11 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   GZIP: 416858efbe66b41b206895ac6dfd5493200d95b3
   libbase58: 7c040313537b8c44b6e2d15586af8e21f7354efd
-  MatrixSDK: 4a2d2ddc1bd58c63f40e14706306e1beaffea02d
+  MatrixSDK: 6261d356de664b6245bb8697634038ca58f72a04
   OLMKit: 9fb4799c4a044dd2c06bda31ec31a12191ad30b5
-  Realm: b6027801398f3743fc222f096faa85281b506e6c
+  Realm: 9ca328bd7e700cc19703799785e37f77d1a130f2
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
 
-PODFILE CHECKSUM: 6012aae9c780c19884a24f7bec7952b10f305a57
+PODFILE CHECKSUM: dad97a51cfc11e592b362e0a4cc496a6509cd6a4
 
 COCOAPODS: 1.11.2
