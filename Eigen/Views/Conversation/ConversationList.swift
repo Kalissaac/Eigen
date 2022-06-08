@@ -37,7 +37,8 @@ struct ConversationList: View {
         })
 
         channels = allRooms.filter({ room in
-            room.isDirect == false
+            room.isDirect == false &&
+            room.summary.roomType == .room
         }).sorted(by: { roomA, roomB in
             if roomA.summary.hasAnyHighlight && !roomB.summary.hasAnyHighlight {
                 return true
