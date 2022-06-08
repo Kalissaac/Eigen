@@ -127,7 +127,7 @@ struct LoginView: View {
             let credentials = MXCredentials(homeServer: homeserverURL.absoluteString, userId: username, accessToken: accessToken)
             matrix.login(withCredentials: credentials, savingToKeychain: true)
         case .loginToken:
-            restClient.login(parameters: ["type": "m.login.token", "token": accessToken]) { response in
+            restClient.login(parameters: ["type": "m.login.token", "token": accessToken, "initial_device_display_name": "Eigen"]) { response in
                 switch response {
                 case .success(let rawLoginResponse):
                     let loginResponse = MXLoginResponse(fromJSON: rawLoginResponse)!
