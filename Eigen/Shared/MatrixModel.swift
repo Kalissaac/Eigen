@@ -12,6 +12,7 @@ enum MatrixCredentialValidationError: Error {
     case invalidHomeserver
     case invalidUsername
     case invalidAccessToken
+    case invalidDeviceId
 }
 
 enum MatrixAuthenticationStatus {
@@ -45,6 +46,7 @@ class MatrixModel: ObservableObject {
         let accessTokenData = try! Keychain.readPassword(service: homeserver, account: username)
         let accessToken = String(data: accessTokenData, encoding: .utf8)!
         let credentials = MXCredentials(homeServer: homeserver, userId: username, accessToken: accessToken)
+        credentials.deviceId = defaults.string(forKey: "deviceId")!
         login(withCredentials: credentials)
     }
 
@@ -62,6 +64,7 @@ class MatrixModel: ObservableObject {
             defaults.set(credentials.homeServer, forKey: "homeserver")
             defaults.set(credentials.userId, forKey: "username")
             try? Keychain.save(password: credentials.accessToken!.data(using: .utf8)!, service: credentials.homeServer!, account: credentials.userId!)
+            defaults.set(credentials.deviceId, forKey: "deviceId")
         }
     }
 
@@ -69,6 +72,7 @@ class MatrixModel: ObservableObject {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: "homeserver")
         defaults.removeObject(forKey: "username")
+        defaults.removeObject(forKey: "deviceId")
         if let homeserver = session.credentials.homeServer, let username = session.credentials.userId {
             try? Keychain.deletePassword(service: homeserver, account: username)
         }
@@ -94,6 +98,10 @@ class MatrixModel: ObservableObject {
 
             guard String(data: accessTokenData, encoding: .utf8) != nil else {
                 throw MatrixCredentialValidationError.invalidAccessToken
+            }
+
+            guard defaults.string(forKey: "deviceId") != nil else {
+                throw MatrixCredentialValidationError.invalidDeviceId
             }
 
             return true
