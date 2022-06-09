@@ -45,6 +45,7 @@ struct ConversationDetail: View {
                         }
                         if echoEvent != nil {
                             insertEvent(echoEvent!)
+                            messageInputText = ""
                         }
                     }
                 Button(action: selectAttachment) {
@@ -98,6 +99,10 @@ struct ConversationDetail: View {
     }
 
     func insertEvent(_ event: MXEvent) {
+        if let i = events.firstIndex(where: { e in e.eventId == event.eventId }) {
+            events[i] = event
+            return
+        }
         if events.first != nil && events.first!.originServerTs > event.originServerTs {
             // Older event, insert at back
             events.append(event)
