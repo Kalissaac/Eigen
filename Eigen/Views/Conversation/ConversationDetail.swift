@@ -70,27 +70,44 @@ struct ConversationDetail: View {
             guard members != nil else { return }
             roomData.members = members!
         } failure: { error in
-            print(error)
+            print(error!)
         }
-        
+
+        if channel.summary.isEncrypted {
+            matrix.session.crypto.ensureEncryption(inRoom: channel.roomId) { }
+            failure: { err in
+                print(err as Any)
+            }
+        }
+
         guard roomTimeline == nil else { return }
         channel.liveTimeline { _timeline in
             guard let timeline: MXEventTimeline = _timeline else { return }
             roomTimeline = timeline
 
+            matrix.session.crypto.resetReplayAttackCheck(inTimeline: timeline.timelineId)
+
             _ = timeline.listenToEvents([.roomMessage, .roomMember, .reaction, .receipt, .typing], { event, _, _ in
-                if events.first != nil && events.first!.originServerTs > event.originServerTs {
-                    // Older event, insert at back
-                    events.append(event)
-                    events.sort(by: <)
+                matrix.session.crypto.resetReplayAttackCheck(inTimeline: timeline.timelineId)
+                if event.isEncrypted {
+                    matrix.session.crypto.decryptEvents([event], inTimeline: timeline.timelineId) { decryptedEvents in
+                        guard decryptedEvents != nil else { return }
+                        for e in decryptedEvents! {
+                            event.setClearData(e)
+                            if e.error == nil {
+                                insertEvent(event)
+                            } else {
+                                print(e.error!)
+                            }
+                        }
+                    }
                 } else {
-                    // Recent event, insert at front
-                    events.insert(event, at: 0)
+                    insertEvent(event)
                 }
             })
     
             timeline.resetPagination()
-            timeline.paginate(100, direction: .backwards, onlyFromStore: false, completion: { response in
+            timeline.paginate(200, direction: .backwards, onlyFromStore: false, completion: { response in
                 guard response.value != nil else { return }
                 messageLoadStatus = .done
                 channel.markAllAsRead()
