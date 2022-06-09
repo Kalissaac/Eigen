@@ -26,6 +26,7 @@ class MatrixModel: ObservableObject {
     @Published var session = MXSession()
     @Published var store = MXFileStore()
     @Published var authenticationStatus: MatrixAuthenticationStatus = .loading
+    @Published var showRoomMemberEvents = true
 
     init(withCredentials credentials: MXCredentials) {
         login(withCredentials: credentials)
