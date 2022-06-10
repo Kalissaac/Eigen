@@ -23,6 +23,7 @@
 		8D813B5B2774168600782363 /* NotificationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5A2774168600782363 /* NotificationList.swift */; };
 		8D813B5D2774168F00782363 /* RecentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5C2774168F00782363 /* RecentsList.swift */; };
 		8D813B5F277416B800782363 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5E277416B800782363 /* SearchResults.swift */; };
+		8D853A5C2852586800596A0C /* NotificationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D853A5B2852586700596A0C /* NotificationInterface.swift */; };
 		8DB9913627B5B4D60040F17E /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9913527B5B4D60040F17E /* PreferencesView.swift */; };
 		8DBF77B72774DFA900083ADB /* ConversationDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */; };
 		8DBF77BC2774E7A200083ADB /* MessageEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77BB2774E7A100083ADB /* MessageEventView.swift */; };
@@ -53,6 +54,7 @@
 		8D813B5A2774168600782363 /* NotificationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationList.swift; sourceTree = "<group>"; };
 		8D813B5C2774168F00782363 /* RecentsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsList.swift; sourceTree = "<group>"; };
 		8D813B5E277416B800782363 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
+		8D853A5B2852586700596A0C /* NotificationInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInterface.swift; sourceTree = "<group>"; };
 		8DB9913527B5B4D60040F17E /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationDetailInfo.swift; sourceTree = "<group>"; };
 		8DBF77BB2774E7A100083ADB /* MessageEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEventView.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				8D33F3DD27744BDC00789812 /* MatrixModel.swift */,
 				8D043B43277518120040DD09 /* Extensions.swift */,
 				8D2E1FDE2775A8700010089D /* KeychainInterface.swift */,
+				8D853A5B2852586700596A0C /* NotificationInterface.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */,
 				8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */,
 				8D813B5B2774168600782363 /* NotificationList.swift in Sources */,
+				8D853A5C2852586800596A0C /* NotificationInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

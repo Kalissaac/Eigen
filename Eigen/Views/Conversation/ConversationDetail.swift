@@ -109,6 +109,7 @@ struct ConversationDetail: View {
                 guard response.value != nil else { return }
                 messageLoadStatus = .done
                 channel.markAllAsRead()
+                clearAllNotifications()
             })
         }
     }
@@ -125,6 +126,10 @@ struct ConversationDetail: View {
         } else {
             // Recent event, insert at front
             events.insert(event, at: 0)
+
+            if events.count > 1 {
+                sendNotification(id: "RECIEVE \(event.eventId ?? "") FROM \(event.sender ?? "") IN \(channel.roomId ?? "")", title: event.sender ?? "New Message", body: event.content[kMXMessageBodyKey] as? String ?? "Message")
+            }
         }
     }
 
