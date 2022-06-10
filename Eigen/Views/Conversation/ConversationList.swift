@@ -160,11 +160,8 @@ struct ConversationList: View {
                     ConversationDetailInfo(channel: matrix.session.room(withRoomId: activeConversation))
                 }
             } else {
-                Button(action: { showDetailInfo = true }) {
+                NavigationLink(destination: PreferencesView()) {
                     Label("About me", systemImage: "person.crop.circle")
-                }
-                .popover(isPresented: $showDetailInfo, arrowEdge: .bottom) {
-                    ProfileView()
                 }
             }
         }

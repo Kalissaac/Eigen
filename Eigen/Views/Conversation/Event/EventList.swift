@@ -27,15 +27,17 @@ struct EventList: View {
                     id: event.eventId,
                     timestamp: event.originServerTs,
                     sender: event.sender,
-                    content: event.content["body"] as? String ?? "(unknown content)",
+                    content: event.content[kMXMessageBodyKey] as? String ?? "(unknown content)",
                     roomId: event.roomId
                 )
                 MessageEventView(message: message)
                     .id(message.id)
                     .scaleEffect(x: 1, y: -1, anchor: .center)
             case .roomMember:
-                MemberEventView(event: event) // roomMembers!.member(withUserId: event.sender)
-                    .scaleEffect(x: 1, y: -1, anchor: .center)
+                if matrix.showRoomMemberEvents {
+                    MemberEventView(event: event)
+                        .scaleEffect(x: 1, y: -1, anchor: .center)
+                }
             default:
                 Text(event.content["body"] as? String ?? "(unknown event)")
                     .font(.caption)

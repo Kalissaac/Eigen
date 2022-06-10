@@ -40,9 +40,7 @@ struct ConversationDetail: View {
                     .textFieldStyle(.roundedBorder)
                     .onSubmit {
                         var echoEvent: MXEvent?
-                        channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in
-                            messageInputText = ""
-                        }
+                        channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in }
                         if echoEvent != nil {
                             insertEvent(echoEvent!)
                             messageInputText = ""
