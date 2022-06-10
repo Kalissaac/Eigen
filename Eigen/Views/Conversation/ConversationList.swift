@@ -27,12 +27,16 @@ struct ConversationList: View {
                 MXCrypto.check(withMatrixSession: matrix.session) { crypto in
                     if crypto == nil {
                         matrix.session.enableCrypto(true) { _ in
-                            matrix.session.crypto.start { } failure: { e in
+                            matrix.session.crypto.start {
+                                matrix.session.crypto.warnOnUnknowDevices = false
+                            } failure: { e in
                                 print(e!)
                             }
                         }
                     } else {
-                        crypto!.start { } failure: { e in
+                        crypto?.start {
+                            crypto?.warnOnUnknowDevices = false
+                        } failure: { e in
                             print(e!)
                         }
                     }
