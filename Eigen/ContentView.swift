@@ -7,8 +7,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var matrixModel = MatrixModel()
+    
     var body: some View {
-        ConversationList()
+        switch matrixModel.authenticationStatus {
+        case .authenticated:
+            ConversationList()
+                .environmentObject(matrixModel)
+        case .notAuthenticated:
+            LoginView()
+                .environmentObject(matrixModel)
+        default:
+            ProgressView()
+        }
     }
 }
 

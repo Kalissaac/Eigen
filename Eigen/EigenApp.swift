@@ -5,24 +5,17 @@
         
 
 import SwiftUI
-import MatrixSDK
 
 @main
 struct EigenApp: App {
-    @StateObject var matrixModel = MatrixModel()
-    
     var body: some Scene {
         WindowGroup {
-            switch matrixModel.authenticationStatus {
-            case .authenticated:
-                ContentView()
-                    .environmentObject(matrixModel)
-            case .notAuthenticated:
-                LoginView()
-                    .environmentObject(matrixModel)
-            default:
-                ProgressView()
-            }
+            ContentView()
+                .handlesExternalEvents(preferring: Set(arrayLiteral: "*"), allowing: Set(arrayLiteral: "*"))
         }
+            .commands {
+                CommandGroup(replacing: CommandGroupPlacement.newItem) { }
+            }
+            .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
     }
 }
