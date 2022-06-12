@@ -25,6 +25,7 @@ struct ConversationDetail: View {
     @State private var events: [MXEvent] = []
     @State private var roomTimeline: MXEventTimeline?
     @State private var messageLoadStatus: MessageLoadStatus = .inProgress
+    @State private var shouldLoadMore: Bool = false
     @StateObject var roomData = RoomData()
 
     init(channel: MXRoom) {
@@ -32,9 +33,15 @@ struct ConversationDetail: View {
     }
     
     var body: some View {
-        VStack {
-            EventList(events: $events)
+        VStack(spacing: 0) {
+            EventList(events: $events, shouldLoadMore: $shouldLoadMore)
                 .environmentObject(roomData)
+                .onChange(of: shouldLoadMore) { newValue in
+                    if newValue {
+                        loadMoreMessages()
+                    }
+                }
+
             HStack {
                 TextField("Send message", text: $messageInputText)
                     .textFieldStyle(.roundedBorder)
@@ -48,11 +55,13 @@ struct ConversationDetail: View {
                     }
                 Button(action: selectAttachment) {
                     Image(systemName: "paperclip")
-                }.buttonStyle(.borderless)
+                }
+                    .buttonStyle(.borderless)
             }
-            .padding(.horizontal, 12)
-            .padding(.top, 4)
-            .padding(.bottom, 12)
+                .padding(.horizontal, 12)
+                .padding(.top, 4)
+                .padding(.bottom, 12)
+                .background()
         }
         .navigationTitle(channel.summary.displayname)
         

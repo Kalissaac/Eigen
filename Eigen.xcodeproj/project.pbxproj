@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4082C2A88270B9588DF87A4F /* Pods_Eigen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752F28AA0410009AFC2FDF89 /* Pods_Eigen.framework */; };
 		8D043B44277518120040DD09 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D043B43277518120040DD09 /* Extensions.swift */; };
+		8D1F3DE228550317003A7EF7 /* InfiniteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3DE128550317003A7EF7 /* InfiniteList.swift */; };
 		8D2E1FDF2775A8700010089D /* KeychainInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2E1FDE2775A8700010089D /* KeychainInterface.swift */; };
 		8D306A0E277B96EF00F7FC7C /* UserAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */; };
 		8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33F3DD27744BDC00789812 /* MatrixModel.swift */; };
@@ -37,6 +38,7 @@
 		4704081D2EFD5D1671268DBD /* Pods-Eigen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eigen.debug.xcconfig"; path = "Target Support Files/Pods-Eigen/Pods-Eigen.debug.xcconfig"; sourceTree = "<group>"; };
 		752F28AA0410009AFC2FDF89 /* Pods_Eigen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eigen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D043B43277518120040DD09 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8D1F3DE128550317003A7EF7 /* InfiniteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteList.swift; sourceTree = "<group>"; };
 		8D2E1FDE2775A8700010089D /* KeychainInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainInterface.swift; sourceTree = "<group>"; };
 		8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAvatarView.swift; sourceTree = "<group>"; };
 		8D33F3DD27744BDC00789812 /* MatrixModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixModel.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				8D043B43277518120040DD09 /* Extensions.swift */,
 				8D2E1FDE2775A8700010089D /* KeychainInterface.swift */,
 				8D853A5B2852586700596A0C /* NotificationInterface.swift */,
+				8D1F3DE128550317003A7EF7 /* InfiniteList.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				8D727C6D2777A4E000C6585D /* EventList.swift in Sources */,
 				8D043B44277518120040DD09 /* Extensions.swift in Sources */,
 				8D727C6827779C9E00C6585D /* MemberEventView.swift in Sources */,
+				8D1F3DE228550317003A7EF7 /* InfiniteList.swift in Sources */,
 				8D3BB59C26BF486300AE0FE2 /* ConversationList.swift in Sources */,
 				8DB9913627B5B4D60040F17E /* PreferencesView.swift in Sources */,
 				8D813B5F277416B800782363 /* SearchResults.swift in Sources */,

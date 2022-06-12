@@ -37,7 +37,7 @@ struct SearchResults: View {
                 .padding(.top, 4)
                 .padding(.bottom, 16)
 
-            EventList(events: searchResultsEvents)
+            EventList(events: searchResultsEvents, shouldLoadMore: .constant(false))
                 .onChange(of: searchText) { newSearchText in
                     matrix.session.matrixRestClient.searchMessages(withPattern: newSearchText, nextBatch: "") { response in
                         switch response {
