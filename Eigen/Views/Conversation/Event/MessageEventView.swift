@@ -24,7 +24,6 @@ struct MessageEventView: View {
                     Text(formatDate(message.timestamp))
                         .foregroundColor(.secondary)
                         .fontWeight(.light)
-//                        .font(.caption)
                         .padding(.leading, 2)
                 }
                     .frame(maxWidth: .infinity, alignment: .leading)
