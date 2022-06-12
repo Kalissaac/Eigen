@@ -51,3 +51,7 @@ extension URL {
         return false
     }
 }
+
+extension MXEvent: Identifiable {
+    public var id: String { eventId ?? String(originServerTs) }
+}
