@@ -31,11 +31,13 @@ struct InfiniteList<Element, Content>: View where Element: Identifiable, Content
     var body: some View {
         GeometryReader { contentsGeometry in
             ScrollView {
-                Spacer(minLength: 18)
-                ForEach(items) { item in
-                    self.viewForItem(item)
-                        .scaleEffect(x: -1, y: 1)
-                        .rotationEffect(.degrees(180))
+                LazyVStack(alignment: .leading) {
+                    Spacer(minLength: 18)
+                    ForEach(items) { item in
+                        self.viewForItem(item)
+                            .scaleEffect(x: -1, y: 1)
+                            .rotationEffect(.degrees(180))
+                    }
                 }
                     .padding(.horizontal)
                 GeometryReader { topViewGeometry in
