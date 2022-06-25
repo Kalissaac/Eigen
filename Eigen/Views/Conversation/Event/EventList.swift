@@ -70,7 +70,6 @@ struct EventView: View {
                 }
             }
             MessageEventView(message: message)
-                .id(message.id)
         case .roomMember:
             if matrix.showRoomMemberEvents {
                 MemberEventView(event: event)
