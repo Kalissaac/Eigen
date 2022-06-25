@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var matrixModel = MatrixModel()
+    @StateObject private var matrixModel = MatrixModel()
     
     var body: some View {
         switch matrixModel.authenticationStatus {

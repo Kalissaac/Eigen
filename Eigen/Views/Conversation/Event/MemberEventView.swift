@@ -8,7 +8,7 @@ import SwiftUI
 import MatrixSDK
 
 struct MemberEventView: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
     let event: MXEvent
     @State private var user: MXUser?

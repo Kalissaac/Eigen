@@ -7,10 +7,10 @@ import SwiftUI
 import MatrixSDK
 
 struct ConversationList: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
-    @State var activeConversation: String? = "recents"
-    @State var searchText: String?
+    @State private var activeConversation: String? = "recents"
+    @State private var searchText: String?
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
     @State private var showDetailInfo = false
@@ -90,7 +90,7 @@ struct ConversationList: View {
                     }
 
                     Section(header: Text("Conversations")) {
-                        ForEach(directMessages, id: \.self) { channel in
+                        ForEach(directMessages, id: \.roomId) { channel in
                             NavigationLink(
                                 destination: ConversationDetail(channel: channel),
                                 tag: channel.roomId,
@@ -110,7 +110,7 @@ struct ConversationList: View {
                     }
 
                     Section(header: Text("Channels")) {
-                        ForEach(channels, id: \.self) { channel in
+                        ForEach(channels, id: \.roomId) { channel in
                             NavigationLink(
                                 destination: ConversationDetail(channel: channel),
                                 tag: channel.roomId,

@@ -9,8 +9,8 @@ import MatrixSDK
 import CachedAsyncImage
 
 struct UserAvatarView: View {
-    @EnvironmentObject var matrix: MatrixModel
-    @EnvironmentObject var roomData: RoomData
+    @EnvironmentObject private var matrix: MatrixModel
+    @EnvironmentObject private var roomData: RoomData
     let user: MXUser?
     let height: CGFloat
     let width: CGFloat

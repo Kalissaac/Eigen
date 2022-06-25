@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
     
     var body: some View {
         VStack {

@@ -20,7 +20,7 @@ struct InfiniteList<Element, Content>: View where Element: Identifiable, Content
     private let items: [Element]
     private let viewForItem: (Element) -> Content
 
-    @Binding var hasReachedTop: Bool
+    @Binding private var hasReachedTop: Bool
 
     init(_ items: [Element], hasReachedTop: Binding<Bool>, viewForItem: @escaping (Element) -> Content) {
         self.items = items

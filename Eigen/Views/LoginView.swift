@@ -15,7 +15,7 @@ enum LoginMethod {
 }
 
 struct LoginView: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
     @State private var username = ""
     @State private var password = ""

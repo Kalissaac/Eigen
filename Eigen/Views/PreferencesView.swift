@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
     @State private var keysimport = ""
     @State private var keyspass = ""

@@ -34,7 +34,7 @@ struct EventList: View {
 }
 
 struct EventView: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
     var event: MXEvent
 
     var body: some View {

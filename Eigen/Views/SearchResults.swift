@@ -8,7 +8,7 @@ import SwiftUI
 import MatrixSDK
 
 struct SearchResults: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
     @State private var searchText = ""
     @State private var searchResults: [MXSearchResult] = []

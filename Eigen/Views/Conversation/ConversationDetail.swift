@@ -18,7 +18,7 @@ final class RoomData: ObservableObject {
 }
 
 struct ConversationDetail: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
     let channel: MXRoom
     @State private var messageInputText = ""
@@ -26,7 +26,7 @@ struct ConversationDetail: View {
     @State private var roomTimeline: MXEventTimeline?
     @State private var messageLoadStatus: MessageLoadStatus = .inProgress
     @State private var shouldLoadMore: Bool = false
-    @StateObject var roomData = RoomData()
+    @StateObject private var roomData = RoomData()
 
     init(channel: MXRoom) {
         self.channel = channel

@@ -9,7 +9,7 @@ import MatrixSDK
 import CachedAsyncImage
 
 struct MessageEventView: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
 
     let message: MessageEvent
     @State private var user: MXUser?

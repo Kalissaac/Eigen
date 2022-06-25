@@ -8,7 +8,7 @@ import SwiftUI
 import MatrixSDK
 
 struct ConversationDetailInfo: View {
-    @EnvironmentObject var matrix: MatrixModel
+    @EnvironmentObject private var matrix: MatrixModel
     
     var channel: MXRoom
     
