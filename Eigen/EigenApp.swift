@@ -18,4 +18,10 @@ struct EigenApp: App {
             }
             .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
     }
+
+    init() {
+        if !FileManager.default.fileExists(atPath: IMAGE_CACHE_DIRECTORY) {
+            let _ = try? FileManager.default.createDirectory(atPath: IMAGE_CACHE_DIRECTORY, withIntermediateDirectories: true)
+        }
+    }
 }

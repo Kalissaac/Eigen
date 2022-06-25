@@ -31,6 +31,7 @@
 		8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD4EDF927754DF800C075C1 /* LoginView.swift */; };
 		8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE095622776AA2E0034C4A3 /* ProfileView.swift */; };
 		8DE095662776C4A00034C4A3 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DE095652776C4A00034C4A3 /* CachedAsyncImage */; };
+		8DF98254286797F600EE1F97 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF98253286797F600EE1F97 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		8DBF77BB2774E7A100083ADB /* MessageEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEventView.swift; sourceTree = "<group>"; };
 		8DD4EDF927754DF800C075C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8DE095622776AA2E0034C4A3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		8DF98253286797F600EE1F97 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				8D2E1FDE2775A8700010089D /* KeychainInterface.swift */,
 				8D853A5B2852586700596A0C /* NotificationInterface.swift */,
 				8D1F3DE128550317003A7EF7 /* InfiniteList.swift */,
+				8DF98253286797F600EE1F97 /* Constants.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				8D813B5D2774168F00782363 /* RecentsList.swift in Sources */,
 				8D727C6D2777A4E000C6585D /* EventList.swift in Sources */,
 				8D043B44277518120040DD09 /* Extensions.swift in Sources */,
+				8DF98254286797F600EE1F97 /* Constants.swift in Sources */,
 				8D727C6827779C9E00C6585D /* MemberEventView.swift in Sources */,
 				8D1F3DE228550317003A7EF7 /* InfiniteList.swift in Sources */,
 				8D3BB59C26BF486300AE0FE2 /* ConversationList.swift in Sources */,
