@@ -6,7 +6,6 @@
 
 import SwiftUI
 import MatrixSDK
-import CachedAsyncImage
 
 struct MessageEvent: Identifiable {
     var id: String
@@ -50,24 +49,7 @@ struct EventView: View {
                 type: .text
             )
             if (event.content[kMXMessageTypeKey] as? String ?? "") == kMXMessageTypeImage {
-                let mediaLoader = event.isEncrypted ? (
-                    matrix.session.mediaManager.downloadEncryptedMedia(fromMatrixContentFile: event.getEncryptedContentFiles()[0], mimeType: "image/png", inFolder: nil)
-                ) : (
-                    matrix.session.mediaManager.downloadMedia(fromMatrixContentURI: event.getMediaURLs()[0], withType: nil, inFolder: nil)
-                )
-
-                if mediaLoader != nil {
-                    Text(String(mediaLoader!.state.rawValue))
-                    Text(mediaLoader!.downloadOutputFilePath)
-                        .textSelection(.enabled)
-                    if let image = MXMediaManager.loadThroughCache(withFilePath: mediaLoader!.downloadOutputFilePath) {
-                        Image(nsImage: image)
-                    }
-//                    CachedAsyncImage(url: URL(string: mediaLoader.downloadOutputFilePath))
-//                        .frame(width: 512, height: 256, alignment: .center)
-//                        .scaleEffect(x: 1, y: -1, anchor: .center)
-//                        .background(Color.gray)
-                }
+                MessageEventImageView(event: event)
             }
             MessageEventView(message: message)
         case .roomMember:

@@ -32,6 +32,7 @@
 		8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE095622776AA2E0034C4A3 /* ProfileView.swift */; };
 		8DE095662776C4A00034C4A3 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DE095652776C4A00034C4A3 /* CachedAsyncImage */; };
 		8DF98254286797F600EE1F97 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF98253286797F600EE1F97 /* Constants.swift */; };
+		8DF9825628679BA000EE1F97 /* MessageEventImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9825528679BA000EE1F97 /* MessageEventImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		8DD4EDF927754DF800C075C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8DE095622776AA2E0034C4A3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8DF98253286797F600EE1F97 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8DF9825528679BA000EE1F97 /* MessageEventImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEventImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				8D727C6C2777A4E000C6585D /* EventList.swift */,
 				8DBF77BB2774E7A100083ADB /* MessageEventView.swift */,
 				8D727C6727779C9E00C6585D /* MemberEventView.swift */,
+				8DF9825528679BA000EE1F97 /* MessageEventImageView.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				8D3BB59C26BF486300AE0FE2 /* ConversationList.swift in Sources */,
 				8DB9913627B5B4D60040F17E /* PreferencesView.swift in Sources */,
 				8D813B5F277416B800782363 /* SearchResults.swift in Sources */,
+				8DF9825628679BA000EE1F97 /* MessageEventImageView.swift in Sources */,
 				8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */,
 				8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */,
 				8D813B5B2774168600782363 /* NotificationList.swift in Sources */,
