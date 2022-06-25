@@ -173,5 +173,6 @@ struct ConversationList: View {
 struct ConversationList_Previews: PreviewProvider {
     static var previews: some View {
         ConversationList()
+            .environmentObject(MatrixModel())
     }
 }
