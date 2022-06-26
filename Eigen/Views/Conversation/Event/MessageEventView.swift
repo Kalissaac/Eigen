@@ -42,13 +42,15 @@ struct MessageEventView: View {
     }
 
     func formatDate(_ timestamp: UInt64) -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(message.timestamp / 1000))
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp / 1000))
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
         if Calendar.autoupdatingCurrent.isDateInToday(date) {
-            return date.formatted(date: .omitted, time: .shortened)
-        } else if Calendar.autoupdatingCurrent.isDateInYesterday(date) {
-            return date.formatted(date: .numeric, time: .shortened)
+            formatter.dateStyle = .none
+            return formatter.string(from: date)
         }
-        return date.formatted(date: .numeric, time: .omitted)
+        return formatter.string(from: date)
     }
 }
 
