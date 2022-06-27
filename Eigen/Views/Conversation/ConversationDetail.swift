@@ -144,7 +144,7 @@ struct ConversationDetail: View {
         }
     }
 
-    func loadMoreMessages(withAmount amount: UInt = 50) {
+    func loadMoreMessages(withAmount amount: UInt = 100) {
         guard messageLoadStatus != .inProgress else { return }
         messageLoadStatus = .inProgress
         roomTimeline?.paginate(amount, direction: .backwards, onlyFromStore: false) { response in
