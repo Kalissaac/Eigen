@@ -27,6 +27,7 @@ struct ConversationDetail: View {
     @State private var messageLoadStatus: MessageLoadStatus = .inProgress
     @State private var shouldLoadMore: Bool = false
     @StateObject private var roomData = RoomData()
+    @FocusState private var isFocused: Bool
 
     init(channel: MXRoom) {
         self.channel = channel
@@ -43,20 +44,27 @@ struct ConversationDetail: View {
                 }
 
             HStack {
-                TextField("Send message", text: $messageInputText)
-                    .textFieldStyle(.roundedBorder)
-                    .onSubmit {
-                        var echoEvent: MXEvent?
-                        channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in }
-                        if let echoEvent = echoEvent {
-                            insertEvent(echoEvent)
-                            messageInputText = ""
-                        }
+                HStack {
+                    TextField("Send message", text: $messageInputText)
+                        .textFieldStyle(.plain)
+                        .focused($isFocused)
+                        .onSubmit {
+                            var echoEvent: MXEvent?
+                            channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in }
+                            if let echoEvent = echoEvent {
+                                insertEvent(echoEvent)
+                                messageInputText = ""
+                            }
                     }
-                Button(action: selectAttachment) {
-                    Image(systemName: "paperclip")
-                }
-                    .buttonStyle(.borderless)
+                    Button(action: selectAttachment) {
+                        Image(systemName: "paperclip")
+                    }
+                        .buttonStyle(.borderless)
+                 }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color(nsColor: .quaternaryLabelColor))
+                    .cornerRadius(8)
             }
                 .padding(.horizontal, 12)
                 .padding(.top, 4)
@@ -70,6 +78,10 @@ struct ConversationDetail: View {
         
         .onAppear(perform: loadInitialMessages)
         .onDisappear(perform: roomTimeline?.removeAllListeners)
+
+        .onAppear {
+            isFocused = true
+        }
     }
     
     func loadInitialMessages() {
