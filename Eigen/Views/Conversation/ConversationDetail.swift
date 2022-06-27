@@ -64,6 +64,9 @@ struct ConversationDetail: View {
                 .background()
         }
         .navigationTitle(channel.summary.displayname)
+
+        .onPasteCommand(of: [.image, .fileURL], perform: handlePaste)
+        .onDrop(of: [.image, .fileURL], isTargeted: nil, perform: handleDrop)
         
         .onAppear(perform: loadInitialMessages)
         .onDisappear(perform: roomTimeline?.removeAllListeners)
@@ -163,26 +166,50 @@ struct ConversationDetail: View {
                 guard try fileURL.checkResourceIsReachable() else { return }
             } catch { return }
 
-            var event: MXEvent?
+            sendAttachment(withFileURL: fileURL)
+        }
+    }
 
-            if fileURL.containsImage {
-                let image = NSImage(byReferencing: fileURL)
-                guard let fileContents = FileManager.default.contents(atPath: fileURL.path) else { return }
-                channel.sendImage(fileContents, withImageSize: image.size, mimeType: fileURL.mimeType(), andThumbnail: nil, threadId: nil, localEcho: &event)
-                { _ in } failure: { e in
-                    print(e!)
-                }
-            } else if fileURL.containsVideo {
-                channel.sendVideo(localURL: fileURL, thumbnail: nil, threadId: nil, localEcho: &event) { _ in }
-            } else if fileURL.containsAudio {
-                channel.sendAudioFile(localURL: fileURL, mimeType: fileURL.mimeType(), threadId: nil, localEcho: &event) { _ in }
-            } else {
-                channel.sendFile(localURL: fileURL, mimeType: fileURL.mimeType(), localEcho: &event) { _ in }
-            }
+    func handlePaste(_ itemProviders: [NSItemProvider]) {
+        itemProviders.forEach { item in
+            guard let itemIdentifier = item.registeredTypeIdentifiers.first else { return }
+            item.loadFileRepresentation(forTypeIdentifier: itemIdentifier) { pointerURL, error in
+                guard error == nil else { print(error as Any); return }
+                guard let pointerURL = pointerURL else { return }
+                guard let rawURLData = FileManager.default.contents(atPath: pointerURL.path) else { return }
+                guard let rawURL = String(data: rawURLData, encoding: .utf8) else { return }
+                guard let url = URL(string: rawURL) else { return }
 
-            if let e = event {
-                insertEvent(e)
+                sendAttachment(withFileURL: url)
             }
+        }
+    }
+
+    func handleDrop(_ itemProviders: [NSItemProvider]) -> Bool {
+        handlePaste(itemProviders)
+        return true
+    }
+
+    func sendAttachment(withFileURL fileURL: URL) {
+        var event: MXEvent?
+
+        if fileURL.containsImage {
+            let image = NSImage(byReferencing: fileURL)
+            guard let fileContents = FileManager.default.contents(atPath: fileURL.path) else { return }
+            channel.sendImage(fileContents, withImageSize: image.size, mimeType: fileURL.mimeType(), andThumbnail: nil, threadId: nil, localEcho: &event)
+            { _ in } failure: { e in
+                print(e as Any)
+            }
+        } else if fileURL.containsVideo {
+            channel.sendVideo(localURL: fileURL, thumbnail: nil, threadId: nil, localEcho: &event) { _ in }
+        } else if fileURL.containsAudio {
+            channel.sendAudioFile(localURL: fileURL, mimeType: fileURL.mimeType(), threadId: nil, localEcho: &event) { _ in }
+        } else {
+            channel.sendFile(localURL: fileURL, mimeType: fileURL.mimeType(), localEcho: &event) { _ in }
+        }
+
+        if let e = event {
+            insertEvent(e)
         }
     }
 }
