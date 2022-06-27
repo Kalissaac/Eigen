@@ -166,7 +166,7 @@ struct ConversationDetail: View {
             if fileURL.containsImage {
                 let image = NSImage(byReferencing: fileURL)
                 guard let fileContents = FileManager.default.contents(atPath: fileURL.path) else { return }
-                channel.sendImage(fileContents, withImageSize: image.size, mimeType: fileURL.mimeType(), andThumbnail: NSImage(), threadId: channel.roomId, localEcho: &event)
+                channel.sendImage(fileContents, withImageSize: image.size, mimeType: fileURL.mimeType(), andThumbnail: nil, threadId: nil, localEcho: &event)
                 { _ in } failure: { e in
                     print(e!)
                 }
