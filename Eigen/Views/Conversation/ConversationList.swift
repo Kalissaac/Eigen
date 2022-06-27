@@ -30,14 +30,18 @@ struct ConversationList: View {
                             matrix.session.crypto.start {
                                 matrix.session.crypto.warnOnUnknowDevices = false
                             } failure: { e in
-                                print(e!)
+                                if let e = e {
+                                    print(e)
+                                }
                             }
                         }
                     } else {
                         crypto?.start {
                             crypto?.warnOnUnknowDevices = false
                         } failure: { e in
-                            print(e!)
+                            if let e = e {
+                                print(e)
+                            }
                         }
                     }
                 }

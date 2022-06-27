@@ -48,8 +48,8 @@ struct ConversationDetail: View {
                     .onSubmit {
                         var echoEvent: MXEvent?
                         channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in }
-                        if echoEvent != nil {
-                            insertEvent(echoEvent!)
+                        if let echoEvent = echoEvent {
+                            insertEvent(echoEvent)
                             messageInputText = ""
                         }
                     }
@@ -77,7 +77,9 @@ struct ConversationDetail: View {
             guard members != nil else { return }
             roomData.members = members!
         } failure: { error in
-            print(error!)
+            if let error = error {
+                print(error)
+            }
         }
 
         if channel.summary.isEncrypted {

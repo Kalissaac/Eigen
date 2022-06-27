@@ -34,9 +34,8 @@ struct MessageEventImageView: View {
                     }
                 }
 
-                if imageDownloaded && mediaLoader != nil {
-                    let outputStream = OutputStream(toFileAtPath: imageDecryptionPath, append: false)!
-                    let _ = MXEncryptedAttachments.decryptAttachment(event.getEncryptedContentFiles()[0], inputStream: InputStream(fileAtPath: imageDownloadPath ?? mediaLoader!.downloadOutputFilePath), outputStream: outputStream) {
+                if imageDownloaded && mediaLoader != nil, let outputStream = OutputStream(toFileAtPath: imageDecryptionPath, append: false) {
+                    let _ = MXEncryptedAttachments.decryptAttachment(encryptedContentFile, inputStream: InputStream(fileAtPath: imageDownloadPath ?? mediaLoader!.downloadOutputFilePath), outputStream: outputStream) {
                         imageDecrypted = true
                     } failure: { err in
                         if let err = err {
