@@ -56,7 +56,7 @@ struct MessageEventImageView: View {
                 }
             }
         }  else if let imageURL = event.getMediaURLs().first {
-            CachedAsyncImage(url: URL(string: matrix.session.mediaManager.url(ofContent: imageURL))) { image in
+            CachedAsyncImage(url: URL(string: matrix.session.mediaManager.url(ofContent: imageURL) ?? "")) { image in
                 image
                   .resizable()
                   .aspectRatio(contentMode: .fit)
