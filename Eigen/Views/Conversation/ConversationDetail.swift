@@ -49,6 +49,7 @@ struct ConversationDetail: View {
                         .textFieldStyle(.plain)
                         .focused($isFocused)
                         .onSubmit {
+                            guard messageInputText != "" else { return }
                             var echoEvent: MXEvent?
                             channel.sendTextMessage(messageInputText, localEcho: &echoEvent) { _ in }
                             if let echoEvent = echoEvent {
