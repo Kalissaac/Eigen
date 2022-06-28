@@ -23,7 +23,9 @@ struct MessageEventImageView: View {
                 Image(nsImage: img)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 512, height: 256, alignment: .center)
+                    .frame(maxHeight: 240, alignment: .leading)
+                    .cornerRadius(4)
+                    .padding(.leading, 38)
             } else {
                 let mediaLoader = matrix.session.mediaManager.downloadEncryptedMedia(fromMatrixContentFile: encryptedContentFile, mimeType: nil, inFolder: nil) { outputPath in
                     imageDownloaded = true
@@ -46,7 +48,9 @@ struct MessageEventImageView: View {
                         Image(nsImage: img)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 512, height: 256, alignment: .center)
+                            .frame(maxHeight: 240, alignment: .leading)
+                            .cornerRadius(4)
+                            .padding(.leading, 38)
                     } else {
                         ProgressView()
                     }
@@ -57,12 +61,14 @@ struct MessageEventImageView: View {
         }  else if let imageURL = event.getMediaURLs().first {
             CachedAsyncImage(url: URL(string: matrix.session.mediaManager.url(ofContent: imageURL) ?? "")) { image in
                 image
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(4)
+                    .padding(.leading, 38)
             } placeholder: {
-                Color.gray
+                ProgressView()
             }
-                .frame(width: 512, height: 256, alignment: .center)
+                .frame(maxHeight: 240, alignment: .leading)
         }
     }
 }
