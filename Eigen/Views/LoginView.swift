@@ -65,7 +65,6 @@ struct LoginView: View {
         )
         .preferredColorScheme(.dark)
         .onOpenURL { url in
-            print(url)
             guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
                   let path = components.url?.pathComponents,
                   let params = components.queryItems else {
@@ -103,7 +102,10 @@ struct LoginView: View {
 
         switch method {
         case .usernamePassword:
-            restClient.login(username: username, password: password) { response in
+            let credentials = MXCredentials(homeServer: homeserverURL.absoluteString, userId: username, accessToken: nil)
+            let restClient = MXRestClient(credentials: credentials, unrecognizedCertificateHandler: nil)
+            let session = MXSession(matrixRestClient: restClient)
+            session?.matrixRestClient.login(username: username, password: password) { response in
                 switch response {
                 case .success(let credentials):
                     matrix.login(withCredentials: credentials, savingToKeychain: true)
