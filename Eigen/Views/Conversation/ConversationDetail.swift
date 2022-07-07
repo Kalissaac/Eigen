@@ -71,6 +71,13 @@ struct ConversationDetail: View {
                 .padding(.top, 4)
                 .padding(.bottom, 12)
                 .background()
+
+            Button("Focus input field") {
+                isFocused = true
+            }
+                .keyboardShortcut("l", modifiers: [.command])
+                .opacity(0)
+                .frame(width: 0, height: 0)
         }
         .navigationTitle(channel.summary.displayname)
 
