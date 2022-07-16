@@ -1,0 +1,13 @@
+//
+// GlobalConfig.xcconfig
+// Eigen
+//
+
+
+EIGEN_NAMESPACE                           = com.hooli.Eigen
+DEVELOPMENT_TEAM                          = Z123456789
+
+PRODUCT_BUNDLE_IDENTIFIER                 = $(EIGEN_NAMESPACE)
+CODE_SIGN_STYLE                           = Manual
+
+#include? "LocalConfig.xcconfig"

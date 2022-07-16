@@ -35,7 +35,7 @@ private func _sendNotification(id: String, title: String, body: String, trigger:
     let notificationContent = UNMutableNotificationContent()
     notificationContent.title = title
     notificationContent.body = body
-    notificationContent.badge = 1
+//    notificationContent.badge = 1
 
     notificationCenter.add(UNNotificationRequest(identifier: id, content: notificationContent, trigger: trigger))
 }
