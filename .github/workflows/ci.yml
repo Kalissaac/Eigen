@@ -19,8 +19,10 @@ jobs:
         run: pod install
       - name: Build
         run: xcodebuild -scheme Eigen -workspace Eigen.xcworkspace clean install DSTROOT=build/root CODE_SIGN_IDENTITY=- | xcpretty  && exit ${PIPESTATUS[0]}
+      - name: Compress Artifact
+        run: tar -czf build/root/Applications/Eigen.tar.gz -C build/root/Applications Eigen.app
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: Eigen
-          path: build/root/Applications
+          path: build/root/Applications/Eigen.tar.gz
