@@ -4,6 +4,9 @@ Matrix client for macOS. 100% native, no Electron bloat.
 
 <img width="1012" alt="Eigen" src="https://user-images.githubusercontent.com/16791380/177373284-ee45c637-2ac5-4be3-97a3-c90e7ff3f2ef.png">
 
+## Download
+Head to [GitHub Actions](https://github.com/Kalissaac/Eigen/actions/workflows/ci.yml) and select the most recent build, scroll down, download, and unzip the artifact.
+
 ## Running locally
 ```sh
 $ git clone https://github.com/Kalissaac/Eigen.git
