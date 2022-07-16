@@ -13,8 +13,10 @@ $ git clone https://github.com/Kalissaac/Eigen.git
 $ cd Eigen
 # install CocoaPods
 $ pod install
-# update developer settings, replacing with your Apple Developer Team ID
-$ printf "DEVELOPMENT_TEAM = <your team id>\nCODE_SIGN_STYLE = Automatic" > Configs/LocalConfig.xcconfig
+# update developer settings, replacing with your Apple Developer Team ID and bundle ID
+$ printf "DEVELOPMENT_TEAM = <your team id> \
+         \nEIGEN_NAMESPACE = com.<your company (or anything)>.Eigen \
+         \nCODE_SIGN_STYLE = Automatic" > Configs/LocalConfig.xcconfig
 # open in Xcode
 $ open Eigen.xcworkspace/
 ```
