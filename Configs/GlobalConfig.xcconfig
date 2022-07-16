@@ -5,7 +5,6 @@
 
 
 EIGEN_NAMESPACE                           = com.hooli.Eigen
-DEVELOPMENT_TEAM                          = ""
 
 PRODUCT_BUNDLE_IDENTIFIER                 = $(EIGEN_NAMESPACE)
 CODE_SIGN_STYLE                           = Manual

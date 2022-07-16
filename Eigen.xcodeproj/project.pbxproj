@@ -25,7 +25,6 @@
 		8D813B5D2774168F00782363 /* RecentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5C2774168F00782363 /* RecentsList.swift */; };
 		8D813B5F277416B800782363 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D813B5E277416B800782363 /* SearchResults.swift */; };
 		8D853A5C2852586800596A0C /* NotificationInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D853A5B2852586700596A0C /* NotificationInterface.swift */; };
-		8D8A1C2C288285F4006E90B2 /* GlobalConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8D8A1C2B288285F4006E90B2 /* GlobalConfig.xcconfig */; };
 		8DB9913627B5B4D60040F17E /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9913527B5B4D60040F17E /* PreferencesView.swift */; };
 		8DBF77B72774DFA900083ADB /* ConversationDetailInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77B62774DFA900083ADB /* ConversationDetailInfo.swift */; };
 		8DBF77BC2774E7A200083ADB /* MessageEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77BB2774E7A100083ADB /* MessageEventView.swift */; };
@@ -268,7 +267,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D3BB59226BF484600AE0FE2 /* Preview Assets.xcassets in Resources */,
-				8D8A1C2C288285F4006E90B2 /* GlobalConfig.xcconfig in Resources */,
 				8D3BB58F26BF484600AE0FE2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
