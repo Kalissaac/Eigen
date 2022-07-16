@@ -17,6 +17,8 @@ jobs:
         run: gem install cocoapods
       - name: Install Dependencies
         run: pod install
+      - name: Disable Library Validation
+        run: /usr/libexec/PlistBuddy -c 'Add :com.apple.security.cs.disable-library-validation bool true' ./Eigen/Eigen.entitlements
       - name: Build
         run: xcodebuild -scheme Eigen -workspace Eigen.xcworkspace clean install DSTROOT=build/root CODE_SIGN_IDENTITY=- | xcpretty  && exit ${PIPESTATUS[0]}
       - name: Compress Artifact
