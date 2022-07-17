@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - GZIP (1.3.0)
   - libbase58 (0.1.4)
-  - MatrixSDK (0.23.10):
-    - MatrixSDK/Core (= 0.23.10)
-  - MatrixSDK/Core (0.23.10):
+  - MatrixSDK (0.23.12):
+    - MatrixSDK/Core (= 0.23.12)
+  - MatrixSDK/Core (0.23.12):
     - AFNetworking (~> 4.0.0)
     - GZIP (~> 1.3.0)
     - libbase58 (~> 0.1.4)
@@ -35,7 +35,7 @@ PODS:
   - SwiftyBeaver (1.9.5)
 
 DEPENDENCIES:
-  - MatrixSDK (~> 0.23.10)
+  - MatrixSDK (~> 0.23.12)
 
 SPEC REPOS:
   trunk:
@@ -51,11 +51,11 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   GZIP: 416858efbe66b41b206895ac6dfd5493200d95b3
   libbase58: 7c040313537b8c44b6e2d15586af8e21f7354efd
-  MatrixSDK: 58238bb5af7e6d9f6acce0373b86ca31413a09b5
+  MatrixSDK: cfc3316cbe8534ff9d4d7b49a1bc92dfb6b1296d
   OLMKit: 9fb4799c4a044dd2c06bda31ec31a12191ad30b5
   Realm: 9ca328bd7e700cc19703799785e37f77d1a130f2
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
 
-PODFILE CHECKSUM: 769c2bcde0975dc1adff580238f4934f7a5129b1
+PODFILE CHECKSUM: bc2d3fa6c28f0010d9020550251a22da55509a19
 
 COCOAPODS: 1.11.3
