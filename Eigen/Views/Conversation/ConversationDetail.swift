@@ -28,10 +28,6 @@ struct ConversationDetail: View {
     @State private var shouldLoadMore: Bool = false
     @StateObject private var roomData = RoomData()
     @FocusState private var isFocused: Bool
-
-    init(channel: MXRoom) {
-        self.channel = channel
-    }
     
     var body: some View {
         VStack(spacing: 0) {

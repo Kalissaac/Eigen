@@ -13,8 +13,7 @@ struct ConversationList: View {
     @State private var searchText: String?
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
-    @State private var showDetailInfo = false
-    
+
     func fetch() {
         matrix.session.setStore(matrix.store) { response in
             guard response.isSuccess else { return }
@@ -157,12 +156,7 @@ struct ConversationList: View {
         
         .toolbar {
             if activeConversation?.contains(":") == true {
-                Button(action: { showDetailInfo = true }) {
-                    Label("About this conversation", systemImage: "info.circle")
-                }
-                .popover(isPresented: $showDetailInfo, arrowEdge: .bottom) {
-                    ConversationDetailInfo(channel: matrix.session.room(withRoomId: activeConversation))
-                }
+                ConversationDetailToolbar(activeConversation: $activeConversation)
             } else {
                 NavigationLink(destination: PreferencesView()) {
                     Label("About me", systemImage: "person.crop.circle")
