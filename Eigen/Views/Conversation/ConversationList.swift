@@ -136,14 +136,14 @@ struct ConversationList: View {
                     .padding(.bottom, 0)
                 NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
                     if let userIdSplit = matrix.session.myUser?.userId.split(separator: ":"),
-                        let usernamePortion = userIdSplit[0],
-                        let homeserverPortion = userIdSplit[1] {
+                        let username = userIdSplit[0],
+                        let homeserver = userIdSplit[1] {
                         UserAvatarView(user: matrix.session.myUser, height: 18, width: 18)
                             .environmentObject(RoomData())
                         HStack(spacing: 0) {
-                            Text(usernamePortion)
+                            Text(username)
                                 .fontWeight(.medium)
-                            Text(":" + homeserverPortion)
+                            Text(":" + homeserver)
                                 .fontWeight(.light)
                         }
                     }
