@@ -56,6 +56,8 @@ struct EventView: View {
             if matrix.preferences.showRoomMemberEvents {
                 MemberEventView(event: event)
             }
+        case .callInvite:
+            CallInviteEventView(event: event)
         default:
             Text(event.content["body"] as? String ?? "(unknown event)")
                 .font(.caption)

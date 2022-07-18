@@ -115,7 +115,7 @@ struct ConversationDetail: View {
 
             matrix.session.crypto.resetReplayAttackCheck(inTimeline: timeline.timelineId)
 
-            _ = timeline.listenToEvents([.roomMessage, .roomMember, .reaction, .receipt, .typing], { event, _, _ in
+            _ = timeline.listenToEvents([.roomMessage, .roomMember, .reaction, .receipt, .typing, .callInvite], { event, _, _ in
                 matrix.session.crypto.resetReplayAttackCheck(inTimeline: timeline.timelineId)
                 if event.isEncrypted {
                     matrix.session.crypto.decryptEvents([event], inTimeline: timeline.timelineId) { decryptedEvents in
