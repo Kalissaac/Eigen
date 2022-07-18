@@ -58,6 +58,10 @@ struct EventListItem: View {
             }
         case .callInvite:
             CallInviteEventView(event: event)
+        case .callReject:
+            CallRejectEventView(event: event)
+        case .callHangup:
+            CallHangupEventView(event: event)
         default:
             Text(event.content["body"] as? String ?? "(unknown event)")
                 .font(.caption)

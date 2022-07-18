@@ -31,6 +31,9 @@
 		8DBF77BC2774E7A200083ADB /* MessageEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF77BB2774E7A100083ADB /* MessageEventView.swift */; };
 		8DC88AB22884DAAE00F56F04 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC88AB12884DAAE00F56F04 /* UserDefaultsStorage.swift */; };
 		8DC88AB42884EAF500F56F04 /* CallInviteEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC88AB32884EAF500F56F04 /* CallInviteEventView.swift */; };
+		8DC88AB82884F05500F56F04 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC88AB72884F05500F56F04 /* EventView.swift */; };
+		8DC88ABA288505B800F56F04 /* CallRejectEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC88AB9288505B800F56F04 /* CallRejectEventView.swift */; };
+		8DC88ABC288505D500F56F04 /* CallHangupEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC88ABB288505D500F56F04 /* CallHangupEventView.swift */; };
 		8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD4EDF927754DF800C075C1 /* LoginView.swift */; };
 		8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE095622776AA2E0034C4A3 /* ProfileView.swift */; };
 		8DE095662776C4A00034C4A3 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DE095652776C4A00034C4A3 /* CachedAsyncImage */; };
@@ -70,6 +73,9 @@
 		8DBF77BB2774E7A100083ADB /* MessageEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEventView.swift; sourceTree = "<group>"; };
 		8DC88AB12884DAAE00F56F04 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		8DC88AB32884EAF500F56F04 /* CallInviteEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallInviteEventView.swift; sourceTree = "<group>"; };
+		8DC88AB72884F05500F56F04 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		8DC88AB9288505B800F56F04 /* CallRejectEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRejectEventView.swift; sourceTree = "<group>"; };
+		8DC88ABB288505D500F56F04 /* CallHangupEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHangupEventView.swift; sourceTree = "<group>"; };
 		8DD4EDF927754DF800C075C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8DE095622776AA2E0034C4A3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8DF98253286797F600EE1F97 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -110,10 +116,13 @@
 			isa = PBXGroup;
 			children = (
 				8D727C6C2777A4E000C6585D /* EventList.swift */,
+				8DC88AB72884F05500F56F04 /* EventView.swift */,
 				8DBF77BB2774E7A100083ADB /* MessageEventView.swift */,
 				8D727C6727779C9E00C6585D /* MemberEventView.swift */,
 				8DF9825528679BA000EE1F97 /* MessageEventImageView.swift */,
 				8DC88AB32884EAF500F56F04 /* CallInviteEventView.swift */,
+				8DC88AB9288505B800F56F04 /* CallRejectEventView.swift */,
+				8DC88ABB288505D500F56F04 /* CallHangupEventView.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -336,6 +345,8 @@
 				8D306A0E277B96EF00F7FC7C /* UserAvatarView.swift in Sources */,
 				8DBF77BC2774E7A200083ADB /* MessageEventView.swift in Sources */,
 				8D33F3DE27744BDC00789812 /* MatrixModel.swift in Sources */,
+				8DC88ABA288505B800F56F04 /* CallRejectEventView.swift in Sources */,
+				8DC88AB82884F05500F56F04 /* EventView.swift in Sources */,
 				8DE095632776AA2E0034C4A3 /* ProfileView.swift in Sources */,
 				8D813B5D2774168F00782363 /* RecentsList.swift in Sources */,
 				8D727C6D2777A4E000C6585D /* EventList.swift in Sources */,
@@ -349,6 +360,7 @@
 				8DB9913627B5B4D60040F17E /* PreferencesView.swift in Sources */,
 				8D813B5F277416B800782363 /* SearchResults.swift in Sources */,
 				8DF9825628679BA000EE1F97 /* MessageEventImageView.swift in Sources */,
+				8DC88ABC288505D500F56F04 /* CallHangupEventView.swift in Sources */,
 				8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */,
 				8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */,
 				8DC88AB42884EAF500F56F04 /* CallInviteEventView.swift in Sources */,
