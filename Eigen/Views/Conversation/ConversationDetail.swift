@@ -159,6 +159,7 @@ struct ConversationDetail: View {
 
             if events.count > 1 {
                 let senderUser = matrix.session.getOrCreateUser(event.sender)
+                guard event.sender != matrix.session.myUserId else { return }
                 sendNotification(id: "RECIEVE \(event.eventId ?? "") FROM \(event.sender ?? "") IN \(channel.roomId ?? "")", title: senderUser?.displayname ?? event.sender ?? "New Message", body: event.content[kMXMessageBodyKey] as? String ?? "Message")
             }
         }
