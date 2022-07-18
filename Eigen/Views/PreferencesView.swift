@@ -25,7 +25,7 @@ struct PreferencesView: View {
                 }
             }
             Section("Appearance") {
-                Toggle("Show room member events", isOn: $matrix.showRoomMemberEvents)
+                Toggle("Show room member events", isOn: $matrix.preferences.showRoomMemberEvents)
             }
             Section("Devices") {
                 if matrix.session.crypto != nil {

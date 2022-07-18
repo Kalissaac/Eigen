@@ -26,7 +26,7 @@ class MatrixModel: ObservableObject {
     @Published var session = MXSession()
     @Published var store = MXFileStore()
     @Published var authenticationStatus: MatrixAuthenticationStatus = .loading
-    @Published var showRoomMemberEvents = true
+    @Published var preferences = MatrixPreferences()
 
     init(withCredentials credentials: MXCredentials) {
         login(withCredentials: credentials)
@@ -116,4 +116,9 @@ class MatrixModel: ObservableObject {
             return false
         }
     }
+}
+
+struct MatrixPreferences {
+    @UserDefaultsStorage(key: "showRoomMemberEvents", defaultValue: true)
+    var showRoomMemberEvents: Bool
 }

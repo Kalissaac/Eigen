@@ -53,7 +53,7 @@ struct EventView: View {
             }
             MessageEventView(message: message)
         case .roomMember:
-            if matrix.showRoomMemberEvents {
+            if matrix.preferences.showRoomMemberEvents {
                 MemberEventView(event: event)
             }
         default:
