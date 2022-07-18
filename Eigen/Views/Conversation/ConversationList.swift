@@ -135,22 +135,25 @@ struct ConversationList: View {
                     .listStyle(.sidebar)
                     .padding(.bottom, 0)
                 NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
-                    UserAvatarView(user: matrix.session.myUser, height: 18.0, width: 18.0)
-                        .environmentObject(RoomData())
-                    let usernamePortion = matrix.session.myUser?.userId.split(separator: ":")[0]
-                    let homeserverPortion = matrix.session.myUser?.userId.split(separator: ":")[1]
-                    HStack(spacing: 0) {
-                        Text(usernamePortion ?? "")
-                            .fontWeight(.medium)
-                        Text(":" + (homeserverPortion ?? ""))
-                            .fontWeight(.light)
+                    if let userIdSplit = matrix.session.myUser?.userId.split(separator: ":"),
+                        let usernamePortion = userIdSplit[0],
+                        let homeserverPortion = userIdSplit[1] {
+                        UserAvatarView(user: matrix.session.myUser, height: 18, width: 18)
+                            .environmentObject(RoomData())
+                        HStack(spacing: 0) {
+                            Text(usernamePortion)
+                                .fontWeight(.medium)
+                            Text(":" + homeserverPortion)
+                                .fontWeight(.light)
+                        }
                     }
                 }
                     .buttonStyle(PlainButtonStyle())
-                    .padding(.vertical, 12.0)
+                    .padding(.vertical, 12)
                     .frame(maxWidth: .infinity)
                     .background(activeConversation == "preferences" ? Color.accentColor : .clear, ignoresSafeAreaEdges: .all)
                     .foregroundColor(activeConversation == "preferences" ? Color("AccentColorInvert") : .accentColor)
+                    .disabled(matrix.session.myUser == nil)
             }
         }
         
