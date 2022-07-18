@@ -11,15 +11,14 @@ import CachedAsyncImage
 struct MessageEventView: View {
     @EnvironmentObject private var matrix: MatrixModel
 
+    let event: MXEvent
     let message: MessageEvent
-    @State private var user: MXUser?
-    
+
     var body: some View {
-        HStack {
-            UserAvatarView(user: user, height: 28, width: 28)
+        EventView(event: event) { user in
             VStack {
                 HStack {
-                    Text(user?.displayname ?? message.sender)
+                    Text(user.wrappedValue?.displayname ?? message.sender)
                         .fontWeight(.semibold)
                     Text(formatDate(message.timestamp))
                         .foregroundColor(.secondary)
@@ -32,13 +31,7 @@ struct MessageEventView: View {
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.leading, 2)
         }
-        .onAppear(perform: fetchUser)
-    }
-    
-    func fetchUser() {
-        user = matrix.session.getOrCreateUser(message.sender)
     }
 
     func formatDate(_ timestamp: UInt64) -> String {

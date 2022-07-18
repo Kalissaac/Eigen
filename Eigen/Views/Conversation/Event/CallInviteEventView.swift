@@ -1,5 +1,5 @@
 //
-// MemberEvent.swift
+// CallInviteEventView.swift
 // Eigen
 //
         
@@ -11,31 +11,22 @@ struct CallInviteEventView: View {
     @EnvironmentObject private var matrix: MatrixModel
 
     let event: MXEvent
-    @State private var user: MXUser?
 
     var body: some View {
-        HStack {
-            UserAvatarView(user: user, height: 18, width: 18)
-                .padding(.horizontal, 4)
+        EventView(event: event, hierarchy: .secondary) { user in
             HStack(spacing: 2) {
-                Text(user?.displayname ?? event.content["displayname"] as? String ?? event.sender)
+                Text(user.wrappedValue?.displayname ?? event.content["displayname"] as? String ?? event.sender)
                     .help(event.sender)
                 Text("started a call")
             }
                 .foregroundColor(.secondary)
                 .font(.caption)
-                .padding(.leading, 3)
         }
-        .onAppear(perform: fetchUser)
-    }
-
-    func fetchUser() {
-        user = matrix.session.getOrCreateUser(event.sender)
     }
 }
 
-//struct MemberEvent_Previews: PreviewProvider {
+//struct CallInviteEventView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        MemberEventView()
+//        CallInviteEventView()
 //    }
 //}

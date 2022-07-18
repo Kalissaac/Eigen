@@ -28,12 +28,12 @@ struct EventList: View {
 
     var body: some View {
         InfiniteList(events, hasReachedTop: $shouldLoadMore) { event in
-            EventView(event: event)
+            EventListItem(event: event)
         }
     }
 }
 
-struct EventView: View {
+struct EventListItem: View {
     @EnvironmentObject private var matrix: MatrixModel
     var event: MXEvent
 
@@ -51,7 +51,7 @@ struct EventView: View {
             if (event.content[kMXMessageTypeKey] as? String ?? "") == kMXMessageTypeImage {
                 MessageEventImageView(event: event)
             }
-            MessageEventView(message: message)
+            MessageEventView(event: event, message: message)
         case .roomMember:
             if matrix.preferences.showRoomMemberEvents {
                 MemberEventView(event: event)
