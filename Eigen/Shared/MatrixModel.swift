@@ -78,7 +78,7 @@ class MatrixModel: ObservableObject {
             try? Keychain.deletePassword(service: homeserver, account: username)
         }
         if session.crypto != nil {
-            session.crypto.deleteStore { }
+            session.crypto.close(true)
         }
         if session.store != nil {
             session.store.deleteAllData()

@@ -113,14 +113,13 @@ struct ConversationDetail: View {
             guard let timeline: MXEventTimeline = _timeline else { return }
             roomTimeline = timeline
 
-            matrix.session.crypto.resetReplayAttackCheck(inTimeline: timeline.timelineId)
+            matrix.session.resetReplayAttackCheck(inTimeline: timeline.timelineId)
 
             _ = timeline.listenToEvents([.roomMessage, .roomMember, .reaction, .receipt, .typing, .callInvite, .callReject, .callHangup], { event, _, _ in
-                matrix.session.crypto.resetReplayAttackCheck(inTimeline: timeline.timelineId)
+                matrix.session.resetReplayAttackCheck(inTimeline: timeline.timelineId)
                 if event.isEncrypted {
                     matrix.session.crypto.decryptEvents([event], inTimeline: timeline.timelineId) { decryptedEvents in
-                        guard decryptedEvents != nil else { return }
-                        for e in decryptedEvents! {
+                        for e in decryptedEvents {
                             event.setClearData(e)
                             if e.error == nil {
                                 insertEvent(event)

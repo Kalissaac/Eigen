@@ -23,24 +23,11 @@ struct ConversationList: View {
                 guard response.isSuccess else { return }
                 updateRoomStates()
 
-                MXCrypto.check(withMatrixSession: matrix.session) { crypto in
-                    if crypto == nil {
-                        matrix.session.enableCrypto(true) { _ in
-                            matrix.session.crypto.start {
-                                matrix.session.crypto.warnOnUnknowDevices = false
-                            } failure: { e in
-                                if let e = e {
-                                    print(e)
-                                }
-                            }
-                        }
-                    } else {
-                        crypto?.start {
-                            crypto?.warnOnUnknowDevices = false
+                if matrix.session.crypto == nil {
+                    matrix.session.enableCrypto(true) { _ in
+                        matrix.session.crypto.start {
                         } failure: { e in
-                            if let e = e {
                                 print(e)
-                            }
                         }
                     }
                 }
