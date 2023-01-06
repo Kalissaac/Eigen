@@ -53,7 +53,6 @@ struct AppearanceSection: View {
     var body: some View {
         Section("Appearance") {
             Toggle("Show room member events", isOn: $matrix.preferences.showRoomMemberEvents)
-            Toggle("Enable spaces", isOn: $matrix.preferences.enableSpaces)
         }
     }
 }
