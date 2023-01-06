@@ -94,41 +94,13 @@ struct ConversationList: View {
 
                     Section(header: Text("Conversations")) {
                         ForEach(directMessages, id: \.roomId) { channel in
-                            NavigationLink(
-                                destination: ConversationDetail(channel: channel),
-                                tag: channel.roomId,
-                                selection: $activeConversation) {
-                                    HStack {
-                                        Image(systemName: "person")
-                                        Text(channel.summary?.displayname ?? channel.roomId)
-                                        if channel.summary?.hasAnyUnread == true {
-                                            Spacer()
-                                            Circle()
-                                                .frame(width: 8, height: 8)
-                                                .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
-                                        }
-                                    }
-                            }
+                            RoomLink(room: channel, activeConversation: $activeConversation, icon: "person")
                         }
                     }
 
                     Section(header: Text("Channels")) {
                         ForEach(channels, id: \.roomId) { channel in
-                            NavigationLink(
-                                destination: ConversationDetail(channel: channel),
-                                tag: channel.roomId,
-                                selection: $activeConversation) {
-                                    HStack {
-                                        Image(systemName: "number")
-                                        Text(channel.summary?.displayname ?? channel.roomId)
-                                        if channel.summary?.hasAnyUnread == true {
-                                            Spacer()
-                                            Circle()
-                                                .frame(width: 8, height: 8)
-                                                .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
-                                        }
-                                    }
-                            }
+                            RoomLink(room: channel, activeConversation: $activeConversation)
                         }
                     }
                 }
@@ -168,6 +140,30 @@ struct ConversationList: View {
         }
         
         .onAppear(perform: fetch)
+    }
+}
+
+struct RoomLink: View {
+    let room: MXRoom
+    @Binding var activeConversation: String?
+    var icon: String = "number"
+
+    var body: some View {
+        NavigationLink(
+            destination: ConversationDetail(channel: room),
+            tag: room.roomId,
+            selection: $activeConversation) {
+                HStack {
+                    Image(systemName: icon)
+                    Text(room.summary?.displayname ?? room.roomId)
+                    if room.summary?.hasAnyUnread == true {
+                        Spacer()
+                        Circle()
+                            .frame(width: 8, height: 8)
+                            .foregroundColor(room.summary?.hasAnyHighlight == true ? .red : .primary)
+                    }
+                }
+        }
     }
 }
 
