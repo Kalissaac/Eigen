@@ -143,6 +143,9 @@ struct ConversationList: View {
         }
         
         .onAppear(perform: fetch)
+        .onChange(of: matrix.preferences.prioritizeRoomsWithActivity) { _ in
+            updateRoomStates()
+        }
     }
 }
 
