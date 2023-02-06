@@ -124,4 +124,7 @@ struct MatrixPreferences {
 
     @UserDefaultsStorage(key: "prioritizeRoomsWithActivity", defaultValue: true)
     var prioritizeRoomsWithActivity: Bool
+
+    @UserDefaultsStorage(key: "displayRoomActivityIndicators", defaultValue: true)
+    var displayRoomActivityIndicators: Bool
 }

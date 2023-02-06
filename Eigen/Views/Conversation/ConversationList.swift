@@ -150,6 +150,8 @@ struct ConversationList: View {
 }
 
 struct RoomLink: View {
+    @EnvironmentObject private var matrix: MatrixModel
+
     let room: MXRoom
     @Binding var activeConversation: String?
     var icon: String = "number"
@@ -162,7 +164,7 @@ struct RoomLink: View {
                 HStack {
                     Image(systemName: icon)
                     Text(room.summary?.displayname ?? room.roomId)
-                    if room.summary?.hasAnyUnread == true {
+                    if matrix.preferences.displayRoomActivityIndicators && room.summary?.hasAnyUnread == true {
                         Spacer()
                         Circle()
                             .frame(width: 8, height: 8)
