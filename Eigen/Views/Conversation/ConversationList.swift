@@ -61,16 +61,19 @@ struct ConversationList: View {
             room.isDirect == false &&
             room.summary.roomType == .room
         }).sorted(by: { roomA, roomB in
-            if roomA.summary.hasAnyHighlight && !roomB.summary.hasAnyHighlight {
-                return true
-            } else if !roomA.summary.hasAnyHighlight && roomB.summary.hasAnyHighlight {
-                return false
+            if matrix.preferences.prioritizeRoomsWithActivity {
+                if roomA.summary.hasAnyHighlight && !roomB.summary.hasAnyHighlight {
+                    return true
+                } else if !roomA.summary.hasAnyHighlight && roomB.summary.hasAnyHighlight {
+                    return false
+                }
+                if roomA.summary.hasAnyUnread && !roomB.summary.hasAnyUnread {
+                    return true
+                } else if !roomA.summary.hasAnyUnread && roomB.summary.hasAnyUnread {
+                    return false
+                }
             }
-            if roomA.summary.hasAnyUnread && !roomB.summary.hasAnyUnread {
-                return true
-            } else if !roomA.summary.hasAnyUnread && roomB.summary.hasAnyUnread {
-                return false
-            }
+
             return roomA.summary.displayname < roomB.summary.displayname
         })
     }

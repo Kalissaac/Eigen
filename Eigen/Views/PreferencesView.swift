@@ -36,6 +36,7 @@ struct PreferencesView: View {
             }
             Section("Appearance") {
                 Toggle("Show room member events", isOn: $matrix.preferences.showRoomMemberEvents)
+                Toggle("List rooms with activity first", isOn: $matrix.preferences.prioritizeRoomsWithActivity)
             }
             Section("Devices") {
                 if let crypto = matrix.session.crypto {

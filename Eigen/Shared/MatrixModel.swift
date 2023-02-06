@@ -121,4 +121,7 @@ class MatrixModel: ObservableObject {
 struct MatrixPreferences {
     @UserDefaultsStorage(key: "showRoomMemberEvents", defaultValue: true)
     var showRoomMemberEvents: Bool
+
+    @UserDefaultsStorage(key: "prioritizeRoomsWithActivity", defaultValue: true)
+    var prioritizeRoomsWithActivity: Bool
 }
