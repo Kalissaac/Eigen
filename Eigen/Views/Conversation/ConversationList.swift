@@ -23,11 +23,24 @@ struct ConversationList: View {
                 guard response.isSuccess else { return }
                 updateRoomStates()
 
-                if matrix.session.crypto == nil {
-                    matrix.session.enableCrypto(true) { _ in
-                        matrix.session.crypto.start {
+                MXCrypto.check(withMatrixSession: matrix.session) { crypto in
+                    if crypto == nil {
+                        matrix.session.enableCrypto(true) { _ in
+                            matrix.session.crypto.start {
+                                matrix.session.crypto.warnOnUnknowDevices = false
+                            } failure: { e in
+                                if let e = e {
+                                    print(e)
+                                }
+                            }
+                        }
+                    } else {
+                        crypto?.start {
+                            crypto?.warnOnUnknowDevices = false
                         } failure: { e in
+                            if let e = e {
                                 print(e)
+                            }
                         }
                     }
                 }
@@ -81,13 +94,41 @@ struct ConversationList: View {
 
                     Section(header: Text("Conversations")) {
                         ForEach(directMessages, id: \.roomId) { channel in
-                            RoomLink(room: channel, activeConversation: $activeConversation, icon: "person")
+                            NavigationLink(
+                                destination: ConversationDetail(channel: channel),
+                                tag: channel.roomId,
+                                selection: $activeConversation) {
+                                    HStack {
+                                        Image(systemName: "person")
+                                        Text(channel.summary?.displayname ?? channel.roomId)
+                                        if channel.summary?.hasAnyUnread == true {
+                                            Spacer()
+                                            Circle()
+                                                .frame(width: 8, height: 8)
+                                                .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
+                                        }
+                                    }
+                            }
                         }
                     }
 
                     Section(header: Text("Channels")) {
                         ForEach(channels, id: \.roomId) { channel in
-                            RoomLink(room: channel, activeConversation: $activeConversation)
+                            NavigationLink(
+                                destination: ConversationDetail(channel: channel),
+                                tag: channel.roomId,
+                                selection: $activeConversation) {
+                                    HStack {
+                                        Image(systemName: "number")
+                                        Text(channel.summary?.displayname ?? channel.roomId)
+                                        if channel.summary?.hasAnyUnread == true {
+                                            Spacer()
+                                            Circle()
+                                                .frame(width: 8, height: 8)
+                                                .foregroundColor(channel.summary?.hasAnyHighlight == true ? .red : .primary)
+                                        }
+                                    }
+                            }
                         }
                     }
                 }
@@ -127,30 +168,6 @@ struct ConversationList: View {
         }
         
         .onAppear(perform: fetch)
-    }
-}
-
-struct RoomLink: View {
-    let room: MXRoom
-    @Binding var activeConversation: String?
-    var icon: String = "number"
-
-    var body: some View {
-        NavigationLink(
-            destination: ConversationDetail(channel: room),
-            tag: room.roomId,
-            selection: $activeConversation) {
-                HStack {
-                    Image(systemName: icon)
-                    Text(room.summary?.displayname ?? room.roomId)
-                    if room.summary?.hasAnyUnread == true {
-                        Spacer()
-                        Circle()
-                            .frame(width: 8, height: 8)
-                            .foregroundColor(room.summary?.hasAnyHighlight == true ? .red : .primary)
-                    }
-                }
-        }
     }
 }
 
