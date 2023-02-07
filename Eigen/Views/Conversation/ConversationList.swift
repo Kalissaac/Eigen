@@ -54,7 +54,11 @@ struct ConversationList: View {
         directMessages = allRooms.filter({ room in
             room.isDirect == true
         }).sorted(by: { roomA, roomB in
-            return roomA.summary.lastMessage.originServerTs > roomB.summary.lastMessage.originServerTs
+            if matrix.preferences.prioritizeRoomsWithActivity {
+                return roomA.summary.lastMessage.originServerTs > roomB.summary.lastMessage.originServerTs
+            }
+
+            return roomA.summary.displayname < roomB.summary.displayname
         })
 
         channels = allRooms.filter({ room in
