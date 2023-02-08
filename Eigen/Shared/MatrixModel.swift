@@ -22,10 +22,17 @@ enum MatrixAuthenticationStatus {
     case error
 }
 
+enum MatrixSyncStatus {
+    case complete
+    case inProgress
+    case initialSync // initial sync in progress, can take a while
+}
+
 class MatrixModel: ObservableObject {
     @Published var session = MXSession()
     @Published var store = MXFileStore()
     @Published var authenticationStatus: MatrixAuthenticationStatus = .loading
+    @Published var syncStatus: MatrixSyncStatus = .inProgress
     @Published var preferences = MatrixPreferences()
 
     init(withCredentials credentials: MXCredentials) {
@@ -66,6 +73,8 @@ class MatrixModel: ObservableObject {
             defaults.set(credentials.userId, forKey: "username")
             try? Keychain.save(password: credentials.accessToken!.data(using: .utf8)!, service: credentials.homeServer!, account: credentials.userId!)
             defaults.set(credentials.deviceId, forKey: "deviceId")
+            // if saving to keychain, likely initial sync
+            syncStatus = .initialSync
         }
     }
 

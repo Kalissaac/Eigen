@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         switch matrixModel.authenticationStatus {
         case .authenticated:
-            ConversationList()
+            AuthenticatedContentView()
                 .environmentObject(matrixModel)
         case .notAuthenticated:
             LoginView()

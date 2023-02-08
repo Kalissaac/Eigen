@@ -14,40 +14,6 @@ struct ConversationList: View {
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
 
-    func fetch() {
-        matrix.session.setStore(matrix.store) { response in
-            guard response.isSuccess else { return }
-            updateRoomStates()
-
-            matrix.session.start { response in
-                guard response.isSuccess else { return }
-                updateRoomStates()
-
-                MXCrypto.check(withMatrixSession: matrix.session) { crypto in
-                    if crypto == nil {
-                        matrix.session.enableCrypto(true) { _ in
-                            matrix.session.crypto.start {
-                                matrix.session.crypto.warnOnUnknowDevices = false
-                            } failure: { e in
-                                if let e = e {
-                                    print(e)
-                                }
-                            }
-                        }
-                    } else {
-                        crypto?.start {
-                            crypto?.warnOnUnknowDevices = false
-                        } failure: { e in
-                            if let e = e {
-                                print(e)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     func updateRoomStates() {
         let allRooms = matrix.session.rooms.filter { room in
             !room.summary.hiddenFromUser
@@ -148,7 +114,9 @@ struct ConversationList: View {
             }
         }
         
-        .onAppear(perform: fetch)
+        .onChange(of: matrix.syncStatus) { _ in
+            updateRoomStates()
+        }
         .onChange(of: matrix.preferences.prioritizeRoomsWithActivity) { _ in
             updateRoomStates()
         }
