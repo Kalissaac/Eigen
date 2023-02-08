@@ -35,18 +35,19 @@ struct AvatarView: View {
         .clipShape(Circle())
     }
 
-    func normalizeAvatarURL() -> URL {
-        let fallbackImageURL = "https://example.com/avatar.png"
-        var url = URL(string: url ?? fallbackImageURL)!
-        if url.scheme == "mxc" {
-            let thumbnailURL = matrix.session.mediaManager.url(
-                ofContentThumbnail: url.absoluteString,
+    func normalizeAvatarURL() -> URL? {
+        guard let url = url else { return nil }
+        guard var normalizedURL = URL(string: url) else { return nil }
+        if normalizedURL.scheme == "mxc" {
+            if let thumbnailURL = matrix.session.mediaManager.url(
+                ofContentThumbnail: normalizedURL.absoluteString,
                 toFitViewSize: CGSize(width: width, height: height),
                 with: .init(1)
-            )
-            url = URL(string: thumbnailURL ?? fallbackImageURL)!
+            ) {
+                normalizedURL = URL(string: thumbnailURL) ?? normalizedURL
+            }
         }
-        return url
+        return normalizedURL
     }
 }
 

@@ -14,35 +14,24 @@ struct UserAvatarView: View {
     let user: MXUser?
     let height: CGFloat
     let width: CGFloat
-    @State private var normalizedURL: String?
+    @State private var url: String?
 
     var body: some View {
-        AvatarView(url: normalizedURL, height: height, width: width)
+        AvatarView(url: url, height: height, width: width)
             .onAppear(perform: normalizeAvatarURL)
     }
 
     func normalizeAvatarURL() -> Void {
-        let fallbackImageURL = "https://example.com/avatar.png"
-        var url = URL(string: user?.avatarUrl ?? fallbackImageURL)!
-        if let roomDataUser = roomData.members.member(withUserId: user?.userId) {
-            if roomDataUser.avatarUrl != "" {
-                url = URL(string: roomDataUser.avatarUrl)!
-            }
+        url = user?.avatarUrl
+        if let roomUser = roomData.members.member(withUserId: user?.userId), roomUser.avatarUrl != "" {
+            url = roomUser.avatarUrl
         }
-        if url.scheme == "mxc" {
-            let thumbnailURL = matrix.session.mediaManager.url(
-                ofContentThumbnail: url.absoluteString,
-                toFitViewSize: CGSize(width: width, height: height),
-                with: .init(1)
-            )
-            url = URL(string: thumbnailURL ?? fallbackImageURL)!
-        }
-        normalizedURL = url.absoluteString
     }
 }
 
-//struct UserAvatarView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserAvatarView()
-//    }
-//}
+struct UserAvatarView_Previews: PreviewProvider {
+    static var previews: some View {
+        UserAvatarView(user: nil, height: 16.0, width: 16.0)
+            .environmentObject(RoomData())
+    }
+}
