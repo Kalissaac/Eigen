@@ -39,6 +39,7 @@
 		8DE095662776C4A00034C4A3 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DE095652776C4A00034C4A3 /* CachedAsyncImage */; };
 		8DF98254286797F600EE1F97 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF98253286797F600EE1F97 /* Constants.swift */; };
 		8DF9825628679BA000EE1F97 /* MessageEventImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9825528679BA000EE1F97 /* MessageEventImageView.swift */; };
+		8DFEE68F29932132006D55FF /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFEE68E29932132006D55FF /* AvatarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		8DE095622776AA2E0034C4A3 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8DF98253286797F600EE1F97 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DF9825528679BA000EE1F97 /* MessageEventImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEventImageView.swift; sourceTree = "<group>"; };
+		8DFEE68E29932132006D55FF /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 				8DD4EDF927754DF800C075C1 /* LoginView.swift */,
 				8DE095622776AA2E0034C4A3 /* ProfileView.swift */,
 				8D306A0D277B96EF00F7FC7C /* UserAvatarView.swift */,
+				8DFEE68E29932132006D55FF /* AvatarView.swift */,
 				8DB9913527B5B4D60040F17E /* PreferencesView.swift */,
 			);
 			path = Views;
@@ -361,6 +364,7 @@
 				8D813B5F277416B800782363 /* SearchResults.swift in Sources */,
 				8DF9825628679BA000EE1F97 /* MessageEventImageView.swift in Sources */,
 				8DC88ABC288505D500F56F04 /* CallHangupEventView.swift in Sources */,
+				8DFEE68F29932132006D55FF /* AvatarView.swift in Sources */,
 				8DD4EDFA27754DF800C075C1 /* LoginView.swift in Sources */,
 				8D3BB58B26BF484500AE0FE2 /* EigenApp.swift in Sources */,
 				8DC88AB42884EAF500F56F04 /* CallInviteEventView.swift in Sources */,

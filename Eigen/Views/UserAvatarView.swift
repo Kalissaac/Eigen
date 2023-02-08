@@ -14,29 +14,14 @@ struct UserAvatarView: View {
     let user: MXUser?
     let height: CGFloat
     let width: CGFloat
+    @State private var normalizedURL: String?
 
     var body: some View {
-        CachedAsyncImage(url: normalizeAvatarURL()) { image in
-            image
-                .resizable()
-        } placeholder: {
-            GeometryReader { metrics in
-                VStack {
-                    HStack {
-                        Image(systemName: "person")
-                            .resizable()
-                            .frame(width: metrics.size.width * 0.5, height: metrics.size.height * 0.5, alignment: .center)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.quaternary)
-            }
-        }
-        .frame(width: width, height: height, alignment: .topLeading)
-        .clipShape(Circle())
+        AvatarView(url: normalizedURL, height: height, width: width)
+            .onAppear(perform: normalizeAvatarURL)
     }
 
-    func normalizeAvatarURL() -> URL {
+    func normalizeAvatarURL() -> Void {
         let fallbackImageURL = "https://example.com/avatar.png"
         var url = URL(string: user?.avatarUrl ?? fallbackImageURL)!
         if let roomDataUser = roomData.members.member(withUserId: user?.userId) {
@@ -52,7 +37,7 @@ struct UserAvatarView: View {
             )
             url = URL(string: thumbnailURL ?? fallbackImageURL)!
         }
-        return url
+        normalizedURL = url.absoluteString
     }
 }
 
