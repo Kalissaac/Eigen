@@ -49,10 +49,12 @@ struct ConversationList: View {
     }
 
     func updateRoomStates() {
-        let allRooms = matrix.session.rooms
+        let allRooms = matrix.session.rooms.filter { room in
+            !room.summary.hiddenFromUser
+        }
 
         directMessages = allRooms.filter({ room in
-            room.isDirect == true
+            room.isDirect
         }).sorted(by: { roomA, roomB in
             if matrix.preferences.prioritizeRoomsWithActivity {
                 return roomA.summary.lastMessage.originServerTs > roomB.summary.lastMessage.originServerTs
@@ -62,7 +64,7 @@ struct ConversationList: View {
         })
 
         channels = allRooms.filter({ room in
-            room.isDirect == false &&
+            !room.isDirect &&
             room.summary.roomType == .room
         }).sorted(by: { roomA, roomB in
             if matrix.preferences.prioritizeRoomsWithActivity {
