@@ -166,7 +166,11 @@ struct RoomLink: View {
             tag: room.roomId,
             selection: $activeConversation) {
                 HStack {
-                    Image(systemName: icon)
+                    if matrix.preferences.showRoomIconsInSidebar {
+                        AvatarView(url: room.summary.avatar, height: 16.0, width: 16.0)
+                    } else {
+                        Image(systemName: icon)
+                    }
                     Text(room.summary?.displayname ?? room.roomId)
                     if matrix.preferences.displayRoomActivityIndicators && room.summary?.hasAnyUnread == true {
                         Spacer()

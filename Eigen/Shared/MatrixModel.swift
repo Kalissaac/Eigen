@@ -127,4 +127,7 @@ struct MatrixPreferences {
 
     @UserDefaultsStorage(key: "displayRoomActivityIndicators", defaultValue: true)
     var displayRoomActivityIndicators: Bool
+
+    @UserDefaultsStorage(key: "showRoomIconsInSidebar", defaultValue: false)
+    var showRoomIconsInSidebar: Bool
 }
