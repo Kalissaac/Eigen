@@ -101,13 +101,13 @@ struct ConversationList: View {
                         Text("Inbox")
                     }
 
-                    Section(header: Text("Conversations")) {
+                    Section(header: Text("People")) {
                         ForEach(directMessages, id: \.roomId) { channel in
                             RoomLink(room: channel, activeConversation: $activeConversation, icon: "person")
                         }
                     }
 
-                    Section(header: Text("Channels")) {
+                    Section(header: Text("Rooms")) {
                         ForEach(channels, id: \.roomId) { channel in
                             RoomLink(room: channel, activeConversation: $activeConversation)
                         }
