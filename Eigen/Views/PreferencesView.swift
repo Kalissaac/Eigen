@@ -17,7 +17,7 @@ struct PreferencesView: View {
         List {
             Section("Profile") {
                 HStack(spacing: 12) {
-                    UserAvatarView(user: matrix.session.myUser, height: 48, width: 48)
+                    UserAvatarView(user: .constant(matrix.session.myUser), height: 48, width: 48)
                         .environmentObject(RoomData())
                     VStack(alignment: .leading) {
                         Text(matrix.session.myUser.displayname)

@@ -11,7 +11,7 @@ import CachedAsyncImage
 struct UserAvatarView: View {
     @EnvironmentObject private var matrix: MatrixModel
     @EnvironmentObject private var roomData: RoomData
-    let user: MXUser?
+    @Binding var user: MXUser?
     let height: CGFloat
     let width: CGFloat
     @State private var url: String?
@@ -31,7 +31,7 @@ struct UserAvatarView: View {
 
 struct UserAvatarView_Previews: PreviewProvider {
     static var previews: some View {
-        UserAvatarView(user: nil, height: 16.0, width: 16.0)
+        UserAvatarView(user: .constant(nil), height: 16.0, width: 16.0)
             .environmentObject(RoomData())
     }
 }

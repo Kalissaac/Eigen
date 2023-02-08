@@ -33,12 +33,12 @@ struct EventView<Content: View>: View {
         HStack {
             switch hierarchy {
             case .secondary:
-                UserAvatarView(user: user, height: 18, width: 18)
+                UserAvatarView(user: $user, height: 18, width: 18)
                     .padding(.horizontal, 5.5)
                 content($user)
                     .padding(.leading, 1.5)
             default:
-                UserAvatarView(user: user, height: 28, width: 28)
+                UserAvatarView(user: $user, height: 28, width: 28)
                     .padding(.trailing, 2)
                 content($user)
             }

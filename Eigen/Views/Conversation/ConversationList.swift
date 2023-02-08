@@ -85,7 +85,7 @@ struct ConversationList: View {
                     if let userIdSplit = matrix.session.myUser?.userId.split(separator: ":"),
                         let username = userIdSplit[0],
                         let homeserver = userIdSplit[1] {
-                        UserAvatarView(user: matrix.session.myUser, height: 18, width: 18)
+                        UserAvatarView(user: .constant(matrix.session.myUser), height: 18, width: 18)
                             .environmentObject(RoomData())
                         HStack(spacing: 0) {
                             Text(username)
