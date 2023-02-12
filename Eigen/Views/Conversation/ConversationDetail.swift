@@ -53,6 +53,10 @@ struct ConversationDetail: View {
                                 messageInputText = ""
                             }
                     }
+                    Button(action: openEmojiKeyboard) {
+                        Image(systemName: "face.smiling")
+                    }
+                        .buttonStyle(.borderless)
                     Button(action: selectAttachment) {
                         Image(systemName: "paperclip")
                     }
@@ -173,7 +177,11 @@ struct ConversationDetail: View {
             messageLoadStatus = .done
         }
     }
-    
+
+    func openEmojiKeyboard() {
+        NSApplication.shared.orderFrontCharacterPalette(nil)
+    }
+
     func selectAttachment() {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
