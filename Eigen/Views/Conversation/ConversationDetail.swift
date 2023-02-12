@@ -219,7 +219,8 @@ struct ConversationDetail: View {
                 print(e as Any)
             }
         } else if fileURL.containsVideo {
-            channel.sendVideo(localURL: fileURL, thumbnail: nil, threadId: nil, localEcho: &event) { _ in }
+            let thumbnail = MXImage(data: Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=") ?? Data()) // FIXME: actually generate thumbnail
+            channel.sendVideo(localURL: fileURL, thumbnail: thumbnail, threadId: nil, localEcho: &event) { _ in }
         } else if fileURL.containsAudio {
             channel.sendAudioFile(localURL: fileURL, mimeType: fileURL.mimeType(), threadId: nil, localEcho: &event) { _ in }
         } else {
