@@ -14,12 +14,21 @@ struct MessageEvent: Identifiable {
     var content: String
     var roomId: String
     var type: MessageEventType
+    var reactions: [MessageReaction]
+    var rawEvent: MXEvent
 }
 
 enum MessageEventType {
     case text
     case image
     case file
+}
+
+struct MessageReaction: Identifiable {
+    var id: String
+    var reaction: String
+    var count: UInt
+    var myUserHasReacted: Bool
 }
 
 struct EventList: View {
@@ -46,12 +55,17 @@ struct EventListItem: View {
                 sender: event.sender,
                 content: event.content[kMXMessageBodyKey] as? String ?? "(unknown content)",
                 roomId: event.roomId,
-                type: .text
+                type: .text,
+                reactions: [],
+                rawEvent: event
             )
             if (event.content[kMXMessageTypeKey] as? String ?? "") == kMXMessageTypeImage {
                 MessageEventImageView(event: event)
             }
-            MessageEventView(event: event, message: message)
+            MessageEventView(message: message)
+        case .reaction:
+            // reactions are rendered in MessageEventView
+            EmptyView()
         case .roomMember:
             if matrix.preferences.showRoomMemberEvents {
                 MemberEventView(event: event)
