@@ -55,3 +55,7 @@ extension URL {
 extension MXEvent: Identifiable {
     public var id: String { eventId ?? String(originServerTs) }
 }
+
+extension MXRoom: Identifiable {
+    public var id: String { roomId }
+}
