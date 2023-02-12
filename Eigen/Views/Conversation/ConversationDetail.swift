@@ -28,7 +28,7 @@ struct ConversationDetail: View {
     @State private var shouldLoadMore: Bool = false
     @StateObject private var roomData = RoomData()
     @FocusState private var isFocused: Bool
-    
+
     var body: some View {
         VStack(spacing: 0) {
             EventList(events: $events, shouldLoadMore: $shouldLoadMore)
@@ -52,7 +52,10 @@ struct ConversationDetail: View {
                                 insertEvent(echoEvent)
                                 messageInputText = ""
                             }
-                    }
+                        }
+                        .task {
+                            isFocused = true
+                        }
                     Button(action: openEmojiKeyboard) {
                         Image(systemName: "face.smiling")
                     }
@@ -88,7 +91,9 @@ struct ConversationDetail: View {
         .onDisappear(perform: roomTimeline?.removeAllListeners)
 
         .onAppear {
-            isFocused = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                isFocused = true
+            }
         }
     }
     
