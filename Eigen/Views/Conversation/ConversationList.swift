@@ -117,6 +117,9 @@ struct ConversationList: View {
         .onChange(of: matrix.syncStatus) { _ in
             updateRoomStates()
         }
+        .onChange(of: matrix.session.rooms) { _ in
+            updateRoomStates()
+        }
         .onChange(of: matrix.preferences.prioritizeRoomsWithActivity) { _ in
             updateRoomStates()
         }
