@@ -49,8 +49,8 @@ struct ConversationDetailInfo: View {
     }
 }
 
-//struct ConversationDetailInfo_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConversationDetailInfo()
-//    }c
-//}
+struct ConversationDetailInfo_Previews: PreviewProvider {
+    static var previews: some View {
+        ConversationDetailInfo(channel: MXRoom())
+    }
+}

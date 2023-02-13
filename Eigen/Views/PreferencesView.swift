@@ -102,8 +102,8 @@ struct PreferencesView: View {
     }
 }
 
-//struct PreferencesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PreferencesView()
-//    }
-//}
+struct PreferencesView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreferencesView()
+    }
+}

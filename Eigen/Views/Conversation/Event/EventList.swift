@@ -83,8 +83,8 @@ struct EventListItem: View {
     }
 }
 
-//struct EventList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EventList(events: [])
-//    }
-//}
+struct EventList_Previews: PreviewProvider {
+    static var previews: some View {
+        EventList(events: .constant([]), shouldLoadMore: .constant(false))
+    }
+}

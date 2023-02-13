@@ -25,8 +25,8 @@ struct CallInviteEventView: View {
     }
 }
 
-//struct CallInviteEventView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CallInviteEventView()
-//    }
-//}
+struct CallInviteEventView_Previews: PreviewProvider {
+    static var previews: some View {
+        CallInviteEventView(event: MXEvent())
+    }
+}

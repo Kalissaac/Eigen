@@ -105,8 +105,8 @@ struct MessageEventView: View {
     }
 }
 
-//struct ConversationMessage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConversationMessage(message: MessageEvent(id: "", timestamp: 1640239022240, sender: "", content: "test", roomId: ""))
-//    }
-//}
+struct MessageEventView_Previews: PreviewProvider {
+    static var previews: some View {
+        MessageEventView(message: MessageEvent(id: "", timestamp: 0, sender: "", content: "Hello world!", roomId: "", type: .text, reactions: [], rawEvent: MXEvent()))
+    }
+}

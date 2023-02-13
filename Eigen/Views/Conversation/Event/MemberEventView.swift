@@ -39,8 +39,8 @@ struct MemberEventView: View {
     }
 }
 
-//struct MemberEvent_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MemberEventView()
-//    }
-//}
+struct MemberEventView_Previews: PreviewProvider {
+    static var previews: some View {
+        MemberEventView(event: MXEvent())
+    }
+}

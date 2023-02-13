@@ -25,8 +25,8 @@ struct CallRejectEventView: View {
     }
 }
 
-//struct MemberEvent_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MemberEventView()
-//    }
-//}
+struct CallRejectEventView_Previews: PreviewProvider {
+    static var previews: some View {
+        CallRejectEventView(event: MXEvent())
+    }
+}

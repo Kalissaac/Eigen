@@ -25,8 +25,8 @@ struct CallHangupEventView: View {
     }
 }
 
-//struct MemberEvent_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MemberEventView()
-//    }
-//}
+struct CallHangupEventView_Previews: PreviewProvider {
+    static var previews: some View {
+        CallHangupEventView(event: MXEvent())
+    }
+}

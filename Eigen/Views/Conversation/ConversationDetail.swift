@@ -246,8 +246,8 @@ struct ConversationDetail: View {
     }
 }
 
-//struct ConversationDetail_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConversationDetail(channel: MXRoom())
-//    }
-//}
+struct ConversationDetail_Previews: PreviewProvider {
+    static var previews: some View {
+        ConversationDetail(channel: MXRoom())
+    }
+}
