@@ -42,8 +42,8 @@ struct ConversationDetailInfo: View {
         .frame(width: 250, height: 400)
         .padding()
         .onAppear {
-            if channel.directUserId != nil {
-                devices = Array(matrix.session.crypto.devices(forUser: channel.directUserId).values)
+            if channel.directUserId != nil, let directUserDevices = matrix.session.crypto.devices(forUser: channel.directUserId) {
+                devices = Array(directUserDevices.values)
             }
         }
     }
