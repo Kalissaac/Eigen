@@ -20,12 +20,7 @@ struct MessageEventImageView: View {
             let imageDecryptionPath = "\(IMAGE_CACHE_DIRECTORY)\(event.id).png"
 
             if FileManager.default.fileExists(atPath: imageDecryptionPath), let img = NSImage(byReferencingFile: imageDecryptionPath) {
-                Image(nsImage: img)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 240, alignment: .leading)
-                    .cornerRadius(4)
-                    .padding(.leading, 38)
+                ImageView(image: img)
             } else {
                 let mediaLoader = matrix.session.mediaManager.downloadEncryptedMedia(fromMatrixContentFile: encryptedContentFile, mimeType: nil, inFolder: nil) { outputPath in
                     imageDownloaded = true
@@ -45,21 +40,34 @@ struct MessageEventImageView: View {
                         }
                     }
                     if imageDecrypted, let img = NSImage(byReferencingFile: imageDecryptionPath) {
-                        Image(nsImage: img)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxHeight: 240, alignment: .leading)
-                            .cornerRadius(4)
-                            .padding(.leading, 38)
+                        ImageView(image: img)
                     } else {
                         ProgressView()
                     }
                 } else {
                     ProgressView()
                 }
-            }
-        }  else if let imageURL = event.getMediaURLs().first {
-            CachedAsyncImage(url: URL(string: matrix.session.mediaManager.url(ofContent: imageURL) ?? "")) { image in
+            }   
+        } else if let imageURL = event.getMediaURLs().first {
+            ImageView(imageURL: URL(string: matrix.session.mediaManager.url(ofContent: imageURL)))
+        }
+    }
+}
+
+private struct ImageView: View {
+    var image: NSImage? = nil
+    var imageURL: URL? = nil
+
+    var body: some View {
+        if let image = image {
+            Image(nsImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .cornerRadius(4)
+                .padding(.leading, 38)
+                .frame(maxHeight: 240, alignment: .leading)
+        } else if let imageURL = imageURL {
+            CachedAsyncImage(url: imageURL) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -69,6 +77,8 @@ struct MessageEventImageView: View {
                 ProgressView()
             }
                 .frame(maxHeight: 240, alignment: .leading)
+        } else {
+            ProgressView()
         }
     }
 }
