@@ -25,15 +25,10 @@ struct MessageEventView: View {
                         .padding(.leading, 2)
                 }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                if #available(macOS 12.0, *) {
-                    Text(message.content)
-                        .foregroundColor(.secondary)
-                        .textSelection(.enabled)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                } else {
-                    Text(message.content)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                Text(LocalizedStringKey(message.content))
+                    .foregroundColor(.secondary)
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 HStack(spacing: 12) {
                     ForEach(message.reactions) { reaction in
                         Button {
