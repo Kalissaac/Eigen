@@ -49,7 +49,7 @@ struct MessageEventImageView: View {
                 }
             }   
         } else if let imageURL = event.getMediaURLs().first {
-            ImageView(imageURL: URL(string: matrix.session.mediaManager.url(ofContent: imageURL)))
+            ImageView(imageURL: URL(string: matrix.session.mediaManager.url(ofContent: imageURL) ?? ""))
         }
     }
 }
