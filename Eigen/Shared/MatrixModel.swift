@@ -86,12 +86,6 @@ class MatrixModel: ObservableObject {
         if let homeserver = session.credentials.homeServer, let username = session.credentials.userId {
             try? Keychain.deletePassword(service: homeserver, account: username)
         }
-        if session.crypto != nil {
-            session.crypto.deleteStore { }
-        }
-        if session.store != nil {
-            session.store.deleteAllData()
-        }
         session.logout { _ in }
         authenticationStatus = .notAuthenticated
     }
