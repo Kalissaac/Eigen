@@ -61,6 +61,7 @@ struct EventListItem: View {
             )
             if (event.content[kMXMessageTypeKey] as? String ?? "") == kMXMessageTypeImage {
                 MessageEventImageView(event: event)
+                    .padding(.bottom, 8)
             }
             MessageEventView(message: message)
         case .reaction:
