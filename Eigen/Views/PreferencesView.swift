@@ -20,10 +20,10 @@ struct PreferencesView: View {
                     UserAvatarView(user: .constant(matrix.session.myUser), height: 48, width: 48)
                         .environmentObject(RoomData())
                     VStack(alignment: .leading) {
-                        Text(matrix.session.myUser.displayname)
+                        Text(matrix.session.myUser?.displayname ?? "")
                             .font(.title3)
                             .bold()
-                        Text(matrix.session.myUser.userId)
+                        Text(matrix.session.myUser?.userId ?? "")
                             .fontWeight(.light)
                             .textSelection(.enabled)
                     }
