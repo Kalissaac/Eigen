@@ -29,7 +29,7 @@ struct LoginView: View {
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom)
-            TextField("Username (@ferris:matrix.org)", text: $username)
+            TextField("Username (@username:matrix.org)", text: $username)
                 .textFieldStyle(.roundedBorder)
                 .background(.black)
             SecureField("Password", text: $password)
@@ -54,6 +54,7 @@ struct LoginView: View {
             Button("Log in") {
                 login(withMethod: .usernamePassword)
             }
+                .disabled(username == "" || password == "")
         }
         .padding(.horizontal, 128)
         .frame(width: 800, height: 400, alignment: .center)
