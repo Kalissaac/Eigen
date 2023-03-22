@@ -9,7 +9,7 @@ import MatrixSDK
 struct ConversationList: View {
     @EnvironmentObject private var matrix: MatrixModel
 
-    @State private var activeConversation: String? = "recents"
+    @State private var activeConversation: String? = "loading"
     @State private var searchText: String?
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
@@ -53,54 +53,61 @@ struct ConversationList: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                List {
-                    NavigationLink(destination: SearchResults(), tag: "search", selection: $activeConversation) {
-                        Image(systemName: "magnifyingglass")
-                        Text("Search")
-                    }
-                    NavigationLink(destination: RecentsList(), tag: "recents", selection: $activeConversation) {
-                        Image(systemName: "clock")
-                        Text("Recents")
-                    }
-                    NavigationLink(destination: NotificationList(), tag: "notifications", selection: $activeConversation) {
-                        Image(systemName: "bell")
-                        Text("Inbox")
-                    }
+                if activeConversation == "loading" {
+                    NavigationLink(destination: ProgressView(), tag: "loading", selection: $activeConversation) {}
+                        .buttonStyle(.plain)
+                } else {
+                    List {
+                        NavigationLink(destination: SearchResults(), tag: "search", selection: $activeConversation) {
+                            Image(systemName: "magnifyingglass")
+                            Text("Search")
+                        }
+                        NavigationLink(destination: RecentsList(activeConversation: $activeConversation), tag: "recents", selection: $activeConversation) {
+                            Image(systemName: "clock")
+                            Text("Recents")
+                        }
+                        NavigationLink(destination: NotificationList(), tag: "notifications", selection: $activeConversation) {
+                            Image(systemName: "bell")
+                            Text("Inbox")
+                        }
 
-                    Section(header: Text("People")) {
-                        ForEach(directMessages, id: \.roomId) { channel in
-                            RoomLink(room: channel, activeConversation: $activeConversation, icon: "person")
+                        Section(header: Text("People")) {
+                            ForEach(directMessages, id: \.roomId) { channel in
+                                RoomLink(room: channel, activeConversation: $activeConversation, icon: "person")
+                            }
                         }
-                    }
 
-                    Section(header: Text("Rooms")) {
-                        ForEach(channels, id: \.roomId) { channel in
-                            RoomLink(room: channel, activeConversation: $activeConversation)
+                        Section(header: Text("Rooms")) {
+                            ForEach(channels, id: \.roomId) { channel in
+                                RoomLink(room: channel, activeConversation: $activeConversation)
+                            }
                         }
                     }
-                }
-                    .listStyle(.sidebar)
-                    .padding(.bottom, 0)
-                NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
-                    if let userIdSplit = matrix.session.myUser?.userId.split(separator: ":"),
-                        let username = userIdSplit[0],
-                        let homeserver = userIdSplit[1] {
-                        UserAvatarView(user: .constant(matrix.session.myUser), height: 18, width: 18)
-                            .environmentObject(RoomData())
-                        HStack(spacing: 0) {
-                            Text(username)
-                                .fontWeight(.medium)
-                            Text(":" + homeserver)
-                                .fontWeight(.light)
+                        .listStyle(.sidebar)
+                        .padding(.bottom, 0)
+                    NavigationLink(destination: PreferencesView(), tag: "preferences", selection: $activeConversation) {
+                        if let userIdSplit = matrix.session.myUser?.userId.split(separator: ":"),
+                            let username = userIdSplit[0],
+                            let homeserver = userIdSplit[1] {
+                            HStack {
+                                UserAvatarView(user: .constant(matrix.session.myUser), height: 18, width: 18)
+                                    .environmentObject(RoomData())
+                                HStack(spacing: 0) {
+                                    Text(username)
+                                        .fontWeight(.medium)
+                                    Text(":" + homeserver)
+                                        .fontWeight(.light)
+                                }
+                            }
                         }
                     }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.vertical, 12)
+                        .frame(maxWidth: .infinity)
+                        .background(activeConversation == "preferences" ? Color.accentColor : .clear, ignoresSafeAreaEdges: .all)
+                        .foregroundColor(activeConversation == "preferences" ? Color("AccentColorInvert") : .accentColor)
+                        .disabled(matrix.session.myUser == nil)
                 }
-                    .buttonStyle(PlainButtonStyle())
-                    .padding(.vertical, 12)
-                    .frame(maxWidth: .infinity)
-                    .background(activeConversation == "preferences" ? Color.accentColor : .clear, ignoresSafeAreaEdges: .all)
-                    .foregroundColor(activeConversation == "preferences" ? Color("AccentColorInvert") : .accentColor)
-                    .disabled(matrix.session.myUser == nil)
             }
         }
         
@@ -116,6 +123,11 @@ struct ConversationList: View {
         
         .onChange(of: matrix.syncStatus) { _ in
             updateRoomStates()
+        }
+        .onChange(of: matrix.session.state) { _ in
+            guard activeConversation == "loading" else { return }
+            guard matrix.session.state != .initialised else { return }
+            activeConversation = "recents"
         }
         .onChange(of: matrix.session.rooms) { _ in
             updateRoomStates()
