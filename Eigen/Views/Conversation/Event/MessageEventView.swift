@@ -19,7 +19,7 @@ struct MessageEventView: View {
                 HStack {
                     Text(user.wrappedValue?.displayname ?? message.sender)
                         .fontWeight(.semibold)
-                    Text(formatDate(message.timestamp))
+                    Text(message.timestamp.toString())
                         .foregroundColor(.secondary)
                         .fontWeight(.light)
                         .padding(.leading, 2)
@@ -46,18 +46,6 @@ struct MessageEventView: View {
             }
         }
             .onAppear(perform: fetchReactions)
-    }
-
-    func formatDate(_ timestamp: UInt64) -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(timestamp / 1000))
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        if Calendar.autoupdatingCurrent.isDateInToday(date) {
-            formatter.dateStyle = .none
-            return formatter.string(from: date)
-        }
-        return formatter.string(from: date)
     }
 
     func fetchReactions() {

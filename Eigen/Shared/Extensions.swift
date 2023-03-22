@@ -59,3 +59,17 @@ extension MXEvent: Identifiable {
 extension MXRoom: Identifiable {
     public var id: String { roomId }
 }
+
+extension UInt64 {
+    func toString() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self / 1000))
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        if Calendar.autoupdatingCurrent.isDateInToday(date) {
+            formatter.dateStyle = .none
+            return formatter.string(from: date)
+        }
+        return formatter.string(from: date)
+    }
+}
