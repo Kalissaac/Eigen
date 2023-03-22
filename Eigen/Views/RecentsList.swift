@@ -20,14 +20,15 @@ struct RecentsList: View {
                 Button {
                     activeConversation = room.id
                 } label: {
-                    VStack {
+                    VStack(alignment: .leading) {
                         HStack {
                             AvatarView(url: room.summary.avatar, height: 28.0, width: 28.0)
                             Text(room.summary.displayname)
                                 .fontWeight(.semibold)
+                                .padding(.leading, 6)
                         }
                         HStack {
-                            Text((room.summary?.lastMessage.originServerTs ?? 0).toString())
+                            Text("last event at \((room.summary?.lastMessage.originServerTs ?? 0).toString())")
                         }
                     }
                 }
