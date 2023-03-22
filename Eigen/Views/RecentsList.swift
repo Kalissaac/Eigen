@@ -5,15 +5,42 @@
         
 
 import SwiftUI
+import MatrixSDK
 
 struct RecentsList: View {
+    @EnvironmentObject private var matrix: MatrixModel
+
+    @Binding var activeConversation: String?
+
     var body: some View {
-        Text("recents").navigationTitle("Recent conversations")
+        VStack {
+            List(matrix.session.rooms.sorted(by: { a, b in
+                a.compareLastMessageEventOriginServerTs(b) == .orderedAscending
+            }).prefix(10), id: \.roomId) { room in
+                Button {
+                    activeConversation = room.id
+                } label: {
+                    VStack {
+                        HStack {
+                            AvatarView(url: room.summary.avatar, height: 28.0, width: 28.0)
+                            Text(room.summary.displayname)
+                                .fontWeight(.semibold)
+                        }
+                        HStack {
+                            Text((room.summary?.lastMessage.originServerTs ?? 0).toString())
+                        }
+                    }
+                }
+                .buttonStyle(.plain)
+                .padding(.vertical, 8)
+            }
+        }
+            .navigationTitle("Recent conversations")
     }
 }
 
 struct RecentsList_Previews: PreviewProvider {
     static var previews: some View {
-        RecentsList()
+        RecentsList(activeConversation: .constant("recents"))
     }
 }
