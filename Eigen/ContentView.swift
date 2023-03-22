@@ -18,7 +18,7 @@ struct ContentView: View {
             LoginView()
                 .environmentObject(matrixModel)
         default:
-            ProgressView()
+            LoadingView()
         }
     }
 }
