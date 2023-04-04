@@ -39,7 +39,7 @@ struct AvatarView: View {
         guard let url = url else { return nil }
         guard var normalizedURL = URL(string: url) else { return nil }
         if normalizedURL.scheme == "mxc" {
-            if let thumbnailURL = matrix.session.mediaManager.url(
+            if let thumbnailURL = matrix.session.mediaManager?.url(
                 ofContentThumbnail: normalizedURL.absoluteString,
                 toFitViewSize: CGSize(width: width, height: height),
                 with: .init(1)
