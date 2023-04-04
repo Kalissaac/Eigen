@@ -10,6 +10,7 @@ struct ConversationList: View {
     @EnvironmentObject private var matrix: MatrixModel
 
     @State private var activeConversation: String? = "loading"
+    @State private var showAccountSwitcher = false
     @State private var searchText: String?
     @State private var directMessages: [MXRoom] = []
     @State private var channels: [MXRoom] = []
@@ -99,6 +100,12 @@ struct ConversationList: View {
                                         .fontWeight(.light)
                                 }
                             }
+                            Button {
+                                showAccountSwitcher = true
+                            } label: {
+                                Image(systemName: "chevron.up.chevron.down")
+                            }
+                                .buttonStyle(.plain)
                         }
                     }
                         .buttonStyle(PlainButtonStyle())
@@ -107,6 +114,46 @@ struct ConversationList: View {
                         .background(activeConversation == "preferences" ? Color.accentColor : .clear, ignoresSafeAreaEdges: .all)
                         .foregroundColor(activeConversation == "preferences" ? Color("AccentColorInvert") : .accentColor)
                         .disabled(matrix.session.myUser == nil)
+                        .popover(isPresented: $showAccountSwitcher) {
+                            VStack {
+                                Spacer()
+                                ForEach(MatrixModel.getAccounts(), id: \.["username"]) { account in
+                                    let username = account["username"] ?? ""
+                                    let usernameSplit = username.split(separator: ":")
+                                    Button {
+                                        guard username != matrix.session.myUserId else { return }
+                                        activeConversation = "loading"
+                                        matrix.switchSession(account: account)
+                                    } label: {
+                                        HStack {
+                                            HStack {
+                                                UserAvatarView(user: .constant(matrix.session.myUser), height: 18, width: 18)
+                                                    .environmentObject(RoomData())
+                                                HStack(spacing: 0) {
+                                                    Text(usernameSplit[0])
+                                                        .fontWeight(.medium)
+                                                    Text(":" + usernameSplit[1])
+                                                        .fontWeight(.light)
+                                                }
+                                            }
+                                            if username == matrix.session.myUserId {
+                                                Image(systemName: "checkmark.circle.fill")
+                                            }
+                                        }
+                                    }
+                                    .buttonStyle(.plain)
+                                    .padding(.horizontal, 8)
+                                }
+                                Button {
+                                    matrix.addAccount()
+                                } label: {
+                                    Image(systemName: "plus")
+                                    Text("Add account")
+                                }
+                                    .buttonStyle(.plain)
+                                Spacer()
+                            }
+                        }
                 }
             }
         }

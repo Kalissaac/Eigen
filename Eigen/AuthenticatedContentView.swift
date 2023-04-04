@@ -43,6 +43,9 @@ struct AuthenticatedContentView: View {
     var body: some View {
         ConversationList()
             .onAppear(perform: fetch)
+            .onChange(of: matrix.session) { _ in
+                fetch()
+            }
     }
 }
 
