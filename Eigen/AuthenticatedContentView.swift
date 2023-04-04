@@ -11,9 +11,6 @@ struct AuthenticatedContentView: View {
     @EnvironmentObject private var matrix: MatrixModel
 
     func fetch() {
-        if matrix.syncStatus != .initialSync {
-            matrix.syncStatus = .inProgress
-        }
         matrix.session.setStore(matrix.store) { response in
             guard response.isSuccess else { return }
 
@@ -36,7 +33,6 @@ struct AuthenticatedContentView: View {
     func startCrypto(crypto: MXCrypto) {
         crypto.start {
             crypto.warnOnUnknowDevices = false
-            matrix.syncStatus = .complete
         } failure: { e in
             if let e = e {
                 print(e)
@@ -45,14 +41,8 @@ struct AuthenticatedContentView: View {
     }
 
     var body: some View {
-        switch matrix.syncStatus {
-        case .initialSync:
-            ProgressView()
-                .onAppear(perform: fetch)
-        default:
-            ConversationList()
-                .onAppear(perform: fetch)
-        }
+        ConversationList()
+            .onAppear(perform: fetch)
     }
 }
 

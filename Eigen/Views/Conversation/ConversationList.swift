@@ -120,10 +120,7 @@ struct ConversationList: View {
                 }
             }
         }
-        
-        .onChange(of: matrix.syncStatus) { _ in
-            updateRoomStates()
-        }
+
         .onChange(of: matrix.session.state) { _ in
             guard activeConversation == "loading" else { return }
             guard matrix.session.state != .initialised else { return }
