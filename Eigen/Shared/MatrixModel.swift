@@ -22,6 +22,12 @@ enum MatrixAuthenticationStatus {
     case error
 }
 
+enum MatrixSyncStatus {
+    case complete
+    case inProgress
+    case initialSync // initial sync in progress, can take a while
+}
+
 let KEYCHAIN_SERVICE = "Eigen"
 
 class MatrixModel: ObservableObject {
@@ -30,6 +36,7 @@ class MatrixModel: ObservableObject {
     @Published var session = MXSession()
     @Published var store = MXFileStore()
     @Published var authenticationStatus: MatrixAuthenticationStatus = .loading
+    @Published var syncStatus: MatrixSyncStatus = .inProgress
     @Published var preferences = MatrixPreferences()
 
     init(withCredentials credentials: MXCredentials) {
