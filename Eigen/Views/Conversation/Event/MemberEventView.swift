@@ -25,7 +25,7 @@ struct MemberEventView: View {
                 case "invite":
                     Text("invited \(event.content["displayname"] as? String ?? "unknown user") to")
                 case "ban":
-                    Text("was banned from")
+                    Text("banned \(event.stateKey ?? "unknown user") (Reason: \(event.wireContent["reason"] as? String ?? "unknown")) from")
                 case "knock":
                     Text("requested to join")
                 default:
