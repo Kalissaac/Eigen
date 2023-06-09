@@ -43,8 +43,8 @@ struct PreferencesView: View {
             Section("Devices") {
                 if let crypto = matrix.session.crypto {
                     let devices = Array(crypto.devices(forUser: matrix.session.myUserId).values)
-                    ForEach(devices.sorted(by: { $0.displayName + $0.deviceId < $1.displayName + $1.deviceId }), id: \.deviceId) { device in
-                        Text("\(device.displayName) (\(device.deviceId))")
+                    ForEach(devices.sorted(by: { $0.displayName ?? "" + $0.deviceId < $1.displayName ?? "" + $1.deviceId }), id: \.deviceId) { device in
+                        Text("\(device.displayName ?? "Unknown") (\(device.deviceId))")
                     }
                 }
             }
